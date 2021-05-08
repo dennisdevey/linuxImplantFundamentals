@@ -1,0 +1,4 @@
+# Greetz
+This course is meant to help a beginner with learning the basics of Linux implant development, and the basics haven't changed in 20 years. Nothing in this course is of my own creation other than the bad jokes, it is all built on the shoulders of giants, some famous, some pseudonymous, and most completely unknown. 
+
+In no particular order, shoutout to the grugq for creating entire fields of research in a few pages of plaintext, Silvio Cesare for getting the scene started and documenting it, marasawr for answering questions about if this was an ITAR violation on Twitter/ being a generally good person, Raphael Mudge for showing me black magic was possible,  tmpout for keeping it going, and the many others who have contributed their knowledge to the internet so that this field can keep moving forward. 

@@ -1,0 +1,6 @@
+# Heuristic Theory
+Heuristics are considered to be very similar to signatures, but instead of looking for exact matches, they look for code or behavior that is known to be malicious. This means that rather than providing a match, they provide a general score for likelihood of being malicious. This method is likely to have false positives, so tuning is required. 
+
+To avoid heuristic detections, the priority is usually to avoid obvious code reuse. Similarly to avoiding signatures, adding extra functions and modifying existing functions is critical. Beyond that, obfuscation with packers, crypters, protectors, and binders go a long way toward lowering the confidence of heuristic detections. Importantly, lowered confidence of a heuristic detection can still result in the process or file being sent for more in-depth analysis. Once your file has been analyzed in depth by a human, you can assume any signature that can be written, will be written, and any implants to those signatures of heuristics will be burned. 
+
+As an aside, the use of packers/crypters/etc is a heuristic in itself. Expect to get caught if your obfuscation technique is a common one. 
