@@ -12,7 +12,7 @@ A crude Python-based FLASK webapp and the associated tooling for you to get HTTP
 
 A crude reverse shell handler 
 
-### activationScript
+### activationScripts
 
 This is empty.
 
