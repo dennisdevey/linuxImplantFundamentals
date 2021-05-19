@@ -1,5 +1,5 @@
 # C to Shellcode
-So, as I said earlier, converting C code to shellcode is pretty damn hard, mostly because of linking. It's basically always linking. 
+So, as I said earlier, converting large amounts of C code to shellcode is pretty damn hard, mostly because of linking. It's basically always linking. 
 
 On the plus side, this is a problem enough people have dealt with that there are many writeups and tools for the subject. On the downside, most of them are for Windows, because, well,  malicious market share.
 
