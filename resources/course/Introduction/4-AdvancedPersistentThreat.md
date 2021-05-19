@@ -32,6 +32,6 @@ So what kind of strategic effect? I think an interesting one here is the idea of
 
 ***Q: So how do we get around this???***
 
-A: By creating an implant that does not have any hardcoded C2 domain, but instead, waits for an activation signal that tells it which domain to connect back to for a payload. This means we never have to worry about the head getting cut off the snake of our long term implants. To do this, I choose portknocking as an initial activation method, though there are others available. This method is underdocumented.
+A: By creating an implant that does not have any hardcoded C2 domain, but instead, waits for an activation signal that tells it which domain to connect back to for a payload. This means we have a lot less likelihood of our C2 connections geting picked off and our long term implants burned. To do this, I choose portknocking as an initial activation method, though there are others available. This method is underdocumented.
  
 Alright, that's enough acronyms for now. Let's start doing things.
