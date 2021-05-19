@@ -13,7 +13,7 @@ This is a falsely attributed quote, but it still is funny and people reference i
 
 > Linux is the kernel: the program in the system that allocates the machine's resources to the other programs that you run. The kernel is an essential part of an operating system, but useless by itself; it can only function in the context of a complete operating system. Linux is normally used in combination with the GNU operating system: the whole system is basically GNU with Linux added, or GNU/Linux. All the so-called ?Linux? distributions are really distributions of GNU/Linux.
 
-So yeah, it is important to understand, Linux is the Kernel, GNU is the base operating system. All the other stuff is built on that. 
+So yeah, it is important to understand, Linux is the Kernel, GNU is the base and provides what we normally think of as the operating system. All the other stuff is built on that. Doesn't effect much, but hey, good to know.
 
 ## Linux Kernel Interfaces
 
