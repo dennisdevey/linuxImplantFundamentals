@@ -159,6 +159,14 @@
 * [Turn Your Implant Into a LDPreload Rootkit](Rootkit_(TO-DO)/1-TurnYourImplantIntoaLDPreloadRootkit.md)
 * [Detect Your LDPreload Rootkit ](Rootkit_(TO-DO)/2-DetectYourLDPreloadRootkit.md)
 
+### Kernel (TO-DO)
+* [Compile a Kernel](The_Kernel/0-CompileAKernel.md)
+* [Hello Kernel](The_Kernel/1-HelloKernel.md)
+* [Sniffex Modulificate](The_Kernel/2-SniffexModulificate.md)
+* [Implant Modulificate](The_Kernel/3-ImplantModulificate.md)
+* [Rootkitify](The_Kernel/4-Rootkitify.md)
+* [Detect Your Kernel Rootkit](The_Kernel/5-KernelDetection.md)
+
 ### Advanced Stuff (TO-DO)
 
 * [Plugin Architecture](Advanced_Stuff_(TO-DO)/0-PluginArchitecture.md)
