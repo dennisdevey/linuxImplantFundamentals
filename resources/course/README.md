@@ -96,13 +96,14 @@
 
 * [C2 Theory](Command_and_Control/0-C2Theory.md)
 * [Linux Socket Theory TODO](Command_and_Control/1-LinuxSocketTheoryTODO.md)
-* [C2 Template TODO](Command_and_Control/2-C2TemplateTODO.md)
+* [C2 Template](Command_and_Control/2-C2Template.md)
 * [Listening Post](Command_and_Control/3-ListeningPost.md)
 * [Command Line Interface](Command_and_Control/4-CommandLineInterface.md)
 * [PreDefined C2](Command_and_Control/5-PreDefinedC2.md)
 * [EncodeEncrypt your C2](Command_and_Control/6-EncodeEncryptyourC2.md)
 * [Redirectors and Infrastructure](Command_and_Control/7-RedirectorsandInfrastructure.md)
 * [Operational Resources](Command_and_Control/9-OperationalResources.md)
+* [Network Forensics](Command_and_Control/10-NetworkForensics.md)
 
 ### Advanced Payloads
 
@@ -122,6 +123,7 @@
 * [LDPreload Shared Objects](Injection/2-LDPreloadSharedObjects.md)
 * [ptrace libcdlopen Injection](Injection/3-ptracelibcdlopenInjection.md)
 * [procpidmaps Injection](Injection/4-procpidmapsInjection.md)
+* [Detect Injection](Injection/5-DetectInjection.md)
 
 ### In Memory
 
@@ -131,6 +133,8 @@
 * [Fileless Dropper](In_Memory/3-FilelessDropper.md)
 * [Fileless Inject](In_Memory/4-FilelessInject.md)
 * [Userland Exec](In_Memory/5-UserlandExec.md)
+* [Detect in Memory](In_Memory/6-DetectInMemory.md)
+
 
 ### Anti-Forensics
 
