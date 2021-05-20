@@ -1,0 +1,1 @@
+Do some network forensics on your implant. Record the packet capture traffic starting with the port knock activation, downloading a payload, and then 30 minutes of C2 callbacks. Go through the traffic and write detections for what you found.
