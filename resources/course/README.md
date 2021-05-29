@@ -39,6 +39,7 @@
 * [Valgrind and Baby DevOps](DevOps/7-ValgrindandBabyDevOps.md)
 * [Python Build](DevOps/8-PythonBuild.md)
 * [Documentation](DevOps/9-Documentation.md)
+* [Testing](devOps/10-Testing.md)
 
 ### Linux Development and Portability
 
