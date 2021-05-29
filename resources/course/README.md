@@ -74,6 +74,9 @@
 * [Send Commands](Backdoor_Basics/4-SendCommands.md)
 * [Knock Handler](Backdoor_Basics/5-KnockHandler.md)
 * [Uninstall](Backdoor_Basics/6-Uninstall.md)
+* [Profiler](Backdoor_Basics/7-Profiler.md)
+* [Update Your Tests](Backdoor_Basics/8-UpdateTests.md)
+
 
 ### Customization
 
@@ -83,6 +86,8 @@
 * [Persistence ](Customization/3-Persistence.md)
 * [Mutex](Customization/4-Mutex.md)
 * [EncodingEncryption](Customization/5-EncodingEncryption.md)
+* [Update Your Tests](Customization/6-UpdateTests.md)
+
 
 ### Execution
 
@@ -91,6 +96,20 @@
 * [StagerDownloader](Execution/2-StagerDownloader.md)
 * [Dropper](Execution/3-Dropper.md)
 * [Classic ELF Infector](Execution/4-ClassicELFInfector.md)
+* [Profiler Builder](Execution/5-ProfilerBuild.md)
+* [Update Your Tests](Execution/6-UpdateTests.md)
+
+
+### Advanced Payloads
+
+* [Bind Shell](Advanced_Payloads/0-BindShell.md)
+* [Activation and Connecting to Shells](Advanced_Payloads/1-ActivationandConnectingtoShells.md)
+* [Reverse Shell](Advanced_Payloads/2-ReverseShell.md)
+* [Position Independent Code](Advanced_Payloads/3-PositionIndependentCode.md)
+* [Shellcode Execution](Advanced_Payloads/4-ShellcodeExecution.md)
+* [ASM to Shellcode](Advanced_Payloads/5-ASMtoShellcode.md)
+* [C to Shellcode](Advanced_Payloads/6-CtoShellcode.md)
+* [Encode Your Shellcode](Advanced_Payloads/7-EncodeYourShellcode.md)
 
 ### Command and Control
 
@@ -105,16 +124,6 @@
 * [Operational Resources](Command_and_Control/9-OperationalResources.md)
 * [Network Forensics](Command_and_Control/10-NetworkForensics.md)
 
-### Advanced Payloads
-
-* [Bind Shell](Advanced_Payloads/0-BindShell.md)
-* [Activation and Connecting to Shells](Advanced_Payloads/1-ActivationandConnectingtoShells.md)
-* [Reverse Shell](Advanced_Payloads/2-ReverseShell.md)
-* [Position Independent Code](Advanced_Payloads/3-PositionIndependentCode.md)
-* [Shellcode Execution](Advanced_Payloads/4-ShellcodeExecution.md)
-* [ASM to Shellcode](Advanced_Payloads/5-ASMtoShellcode.md)
-* [C to Shellcode](Advanced_Payloads/6-CtoShellcode.md)
-* [Encode Your Shellcode](Advanced_Payloads/7-EncodeYourShellcode.md)
 
 ### Injection
 
