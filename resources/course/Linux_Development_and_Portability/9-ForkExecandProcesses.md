@@ -1,5 +1,5 @@
 # ForkExec and Processes
-Before you do this, go over this from one of my previous courses to get yourself into the mindset. <$@ASSIGNVIEWBYID*2382@$>
+Before you do this, go over this from one of my previous courses to get yourself into the mindset. <https://thirddeck.org/courses/mod/assign/view.php?id=60>
 
 I really should make a nice demo lab for this, but for now, do this tutorial: <https://www.geeksforgeeks.org/difference-fork-exec/>. Spend a lot of time looking at the output of ps and understand what is going on here. 
 
