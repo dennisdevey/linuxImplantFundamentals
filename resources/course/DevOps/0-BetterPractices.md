@@ -11,8 +11,6 @@ These are the style guides we use in this APT. Don't read them now, but referenc
 
 Next, we use Github.
 
-Now we are going to clone a repo I made for you with some templates that you will work out of as you go along. <https://github.com/hoppersroppers/linuxImplantFundamentals>. If you make the repository private, make sure to add 'deveynull' to it so that I can look at your commits. 
-
 You will be expected to push your commits as you go with appropriate names for the section you have completed, along with well explained notes. The vast majority of your assignments going forward will be links to your commits, so hopefully that helps you learn good development practices.
 
 Finally, we aren't going to build pipeline stuff yet, but we will do reproducible builds by logging all config info and naming everything uniquely. 
