@@ -16,3 +16,5 @@ Does this mean that we can just get the cd00r backdoor running, change around a 
 Of course not! But lets go make that happen.
 
 For this assignment submit your favorite Turla fact. Don't write too much, this is really just so I can keep track of your progress, I have plenty of assignments like this throughout the course. 
+
+turla has many injected sites and currently, the largest number of injected sites is in Romania.
