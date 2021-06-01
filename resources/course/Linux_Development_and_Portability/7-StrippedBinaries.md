@@ -5,7 +5,7 @@ That static binary is huge!  Luckily we can make them smaller, as well as genera
 
 Compile the sniffex binary statically with no debugging. 
 
-Run strings, ldd, readelf, strace on the two binaries.
+Run strings, ldd, readelf, strace on the binary.
 
 2. What do you find? What was the difference? Is stripping a static binary worth it?
 
