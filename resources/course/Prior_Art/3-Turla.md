@@ -7,7 +7,7 @@ Now Turla is not small fish in Black sea, they are big time Russian APT. Kind of
 
 <https://securelist.com/the-epic-turla-operation/65545/>
 
-In fact, they are notable for having the sexiest C2 of all time, via hijacked satellite links. <https://securelist.com/satellite-turla-apt-command-and-control-in-the-sky/72081/>
+In fact, they are notable for having the most beautiful C2 of all time, via hijacked satellite links. <https://securelist.com/satellite-turla-apt-command-and-control-in-the-sky/72081/>
 
 We've all gotta have our heros, y'know? (If anyone from Turla is reading this, I'd love some merch or we can do a jersey swap. Can't find a gift shop anywhere)
 
