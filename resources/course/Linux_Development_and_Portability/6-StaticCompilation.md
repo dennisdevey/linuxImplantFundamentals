@@ -3,7 +3,7 @@ So if we want to run with any libraries, static is a solid way to go... sort of.
 
 1. What did you have to do to get that to work? Submit the compilation command.
 
-Run srings, ldd, readelf, strace on the file
+Run strings, ldd, readelf, strace on the file
 
 2. What do you find? What was the difference between static and dynamic? 
 
