@@ -8,7 +8,7 @@ Feel free to use this to teach yourself and your people things they ordinarily w
 
 If you have feedback, questions, or comments, hit me at d.m.devey@gmail.com or on Slack. 
 
-/-Dennis
+\-Dennis
 
 ## How to Use This 
 
