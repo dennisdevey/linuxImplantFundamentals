@@ -1,5 +1,6 @@
 # Summary
 
+* [Updated Schedule](schedule.md)
 
 
 ### Introduction
