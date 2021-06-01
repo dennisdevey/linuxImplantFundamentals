@@ -10,13 +10,6 @@
 * [Counterpoint No](Introduction/3-CounterpointNo.md)
 * [Advanced Persistent Threat](Introduction/4-AdvancedPersistentThreat.md)
 
-### Hopping Roppers
-
-* [Letter from the Author](Hopping_Roppers/0-LetterfromtheAuthor.md)
-* [The Site](Hopping_Roppers/1-TheSite.md)
-* [Legal Stuff](Hopping_Roppers/2-LegalStuff.md)
-* [Join Us](Hopping_Roppers/3-JoinUs.md)
-
 ### Prior Art
 
 * [Greetz](Prior_Art/0-Greetz.md)
