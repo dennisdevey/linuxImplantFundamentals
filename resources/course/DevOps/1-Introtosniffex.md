@@ -17,4 +17,4 @@ Run the sniffer and throw some packets at it using netcat.
 
 2. What do you see? Experiment to see how it works. 
 
-Copy  the code that you have written into your cloned repo from the last assignment. Your assignment is to submit a link to your commit. If you have the repo as private I won't be able to view it remember, so make sure to add 'deveynull' to the repo so I can check it.
+Copy  the code that you have written into your cloned repo from the last assignment. Your assignment is to submit a link to your commit. If you have the repo as private I won't be able to view it remember, so make sure to add 'dennisdevey' to the repo so I can check it.

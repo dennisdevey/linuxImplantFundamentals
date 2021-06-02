@@ -1,5 +1,6 @@
 # Summary
 
+* [Updated Schedule](schedule.md)
 
 
 ### Introduction
@@ -9,13 +10,6 @@
 * [How APT](Introduction/2-HowAPT.md)
 * [Counterpoint No](Introduction/3-CounterpointNo.md)
 * [Advanced Persistent Threat](Introduction/4-AdvancedPersistentThreat.md)
-
-### Hopping Roppers
-
-* [Letter from the Author](Hopping_Roppers/0-LetterfromtheAuthor.md)
-* [The Site](Hopping_Roppers/1-TheSite.md)
-* [Legal Stuff](Hopping_Roppers/2-LegalStuff.md)
-* [Join Us](Hopping_Roppers/3-JoinUs.md)
 
 ### Prior Art
 
@@ -39,7 +33,7 @@
 * [Valgrind and Baby DevOps](DevOps/7-ValgrindandBabyDevOps.md)
 * [Python Build](DevOps/8-PythonBuild.md)
 * [Documentation](DevOps/9-Documentation.md)
-* [Testing](devOps/10-Testing.md)
+* [Testing](DevOps/10-Testing.md)
 
 ### Linux Development and Portability
 
