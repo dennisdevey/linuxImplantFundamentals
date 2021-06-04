@@ -1,0 +1,106 @@
+.\"
+.\"  File: sadump.1
+.\"  Author: Claes M. Nyberg <md0claes@mdstud.chalmers.se>
+.\"  Description: sadump manual
+.\"  Version: 1.0
+.\"  Date: Mon Mar 18 13:11:00 CET 2003
+.\"  
+.\"  Copyright (c) 2003 Claes M. Nyberg <md0claes@mdstud.chalmers.se>
+.\"  All rights reserved, all wrongs reversed.
+.\"      
+.\"  Redistribution and use in source and binary forms, with or without
+.\"  modification, are permitted provided that the following conditions
+.\"  are met:
+.\"
+.\"  1. Redistributions of source code must retain the above copyright
+.\"     notice, this list of conditions and the following disclaimer.
+.\"  2. Redistributions in binary form must reproduce the above copyright
+.\"     notice, this list of conditions and the following disclaimer in the
+.\"     documentation and/or other materials provided with the distribution.
+.\"  3. The name of author may not be used to endorse or promote products
+.\"     derived from this software without specific prior written permission.
+.\"      
+.\"  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+.\"  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+.\"  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
+.\"  THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+.\"  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+.\"  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+.\"  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+.\"  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+.\"  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+.\"  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+.\"     
+
+.TH SASH 1 "July 2003" "sadoor client version 1.0" " "
+.SH NAME
+.B sadump
+\- Dump entry from sadoor(8) database file.
+
+.SH SYNOPSIS
+.B sadump
+.RI [ host ]
+.RB [ -dhknpr ]
+.RB [ -f
+.IR sadb_file ]
+
+.SH DESCRIPTION
+.B sadump
+dumps information for 
+.I host
+(or all machines in file if left out) in raw or human readable format from file
+generated with mksadb(8) or sadbcat(1). The default file to dump is ~/.sash/sash.db.
+
+.SH COMMAND LINE OPTIONS
+.B -d
+.RS 4
+Target file is not encrypted. Useful for investigating files generated with mksadb(8).
+.RE
+.PP
+.B -f
+.IR sadb_file
+.RS 4
+Use target sadoor database file
+.I sadb_file
+instead of the default.
+.RE
+.PP
+
+.B -h
+.RS 4
+Print short summary of commandline options.
+.RE
+.PP
+
+.B -k
+.RS 4
+Print private host key in hex. The key is not printed at all by default.
+.RE
+.PP
+
+.B -n
+.RS 4
+Do not attempt to convert addresses to names.
+.RE
+.PP
+
+.B -p
+.RS 4
+Supress printing of packets.
+.RE
+.PP
+
+.B -r
+.RS 4
+Print entry in raw. All information is printed to stdout. Useful if
+you want to split up a database file.
+.RE
+.PP
+
+.SH AUTHOR
+Claes M. Nyberg
+.RS 0
+.IR <cmn@darklab.org> " or " <md0claes@mdstud.chalmers.se>
+.RE
+.SH SEE ALSO
+sadbcat(1), sash.conf(5), sadoor(8), mksadb(8)

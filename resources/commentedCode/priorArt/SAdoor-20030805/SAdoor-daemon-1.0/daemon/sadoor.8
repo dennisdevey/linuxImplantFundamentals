@@ -1,0 +1,146 @@
+.\"
+.\"  File: sadoor.8
+.\"  Author: Claes M. Nyberg <md0claes@mdstud.chalmers.se>
+.\"  Description: SAdoor manual
+.\"  Version: 1.0
+.\"  Date: Mon Mar 17 20:11:03 CET 2003
+.\"  
+.\"  Copyright (c) 2003 Claes M. Nyberg <md0claes@mdstud.chalmers.se>
+.\"  All rights reserved, all wrongs reversed.
+.\"      
+.\"  Redistribution and use in source and binary forms, with or without
+.\"  modification, are permitted provided that the following conditions
+.\"  are met:
+.\"
+.\"  1. Redistributions of source code must retain the above copyright
+.\"     notice, this list of conditions and the following disclaimer.
+.\"  2. Redistributions in binary form must reproduce the above copyright
+.\"     notice, this list of conditions and the following disclaimer in the
+.\"     documentation and/or other materials provided with the distribution.
+.\"  3. The name of author may not be used to endorse or promote products
+.\"     derived from this software without specific prior written permission.
+.\"      
+.\"  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+.\"  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+.\"  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
+.\"  THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+.\"  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+.\"  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+.\"  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+.\"  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+.\"  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+.\"  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+.\"     
+
+.TH SADOOR 8 "July 2003" "sadoor daemon version 1.0" " "
+.SH NAME
+.B sadoor
+\- Non listening remote shell and execution server
+
+.SH SYNOPSIS
+.B sadoor
+.RB [ -hnv ]
+.RB [ -c
+.IR config_file ]
+.RB [ -t
+.IR timout_seconds ]
+.SH DESCRIPTION
+SAdoor (Stealth/Secure/Secret Administration door) listens for a set of
+predefined packets in order to run a command or establish a connection
+(see sadoor.pkts(5) for details).
+.PP
+All packets except for the last one is called "key packets" and they
+are marked off by SAdoor as they arrive in the defined order. 
+The last packet is the "command packet" and carry the encrypted 
+sadoor-command within it's payload. 
+The command is symmetriclly encrypted (Blowfish) using the key
+resisting in sadoor.key(5).
+.PP
+The sadoor-command is either run, connect or accept.
+
+.SS Run command
+The run command simply passes the received string on to system(3), making
+it possible to run shell-commands without establishing a connection.
+
+.SS Connect command
+The connect command (which is the default command sent by sash(8)) 
+contains the port and IP for SAdoor to connect back to.
+
+.SS Accept command
+The accept command tells SAdoor to start listen on a specific port,
+but it also contains the IP and source port of the connecting client
+to make sure that the client connecting is the same as the client 
+sending the command packet.
+
+.SS Encrypted connection
+When a connection is established, SAdoor generates a new key to use
+during the session and allocates a PTY where the slave side runs
+the program specified in sadoor.conf(5) or /bin/sh by default.
+.PP
+The environment variable "SADOOR_CLIENT" is set for the program run 
+and contains the clients IPv4 address and portnumber used for the connection.
+If resolving of hostnames is not disabled with the 
+.B -n
+option, the environment variable "SADOOR_CLIENT_HOSTNAME" is set as well,
+and contains the hostname of the connecting client.
+
+.SS File transfer
+During a connection it is possible to request a file to be transfered
+in some direction. File transfer mode is entered by the presence of an 
+escape sequence in the data received from the client.
+The file is then transfered encrypted in the existing connection.
+Since the existing connection is used, the output of running commands
+is delayed until the file is transfered. See sash(8) for further details.
+
+.SH COMMAND LINE OPTIONS
+.BI -c " config_file"
+.RS 4
+The configuration file to use. Default is /etc/sadoor/sadoor.conf
+.RE
+.PP
+.B -h
+.RS 4
+Print short summary of commandline options.
+.RE
+.PP
+.B -n
+.RS 4
+Do not attempt to convert host addresses to names.
+.RE
+.PP
+.B -v
+.RS 4
+Print version and exit.
+.RE
+.PP
+.BI -t " timeout_seconds"
+.RS 4
+Timout in seconds when establishing a connection to a client,
+default is 30.
+.RE
+.SH CONFIGURATION FILE
+SAdoor reads configuration data from /etc/sadoor/sadoor.conf by default
+(or from the file specified with 
+.B -c
+option on the command line). See sadoor.conf(5) for details.
+.SH DISTRIBUTION
+The latest release can be obtained from
+.RS 0
+.I http://cmn.listprojects.darklab.org/
+.RE
+.PP
+Sadoor uses libpcap which is copyrighted by Van Jacobson,
+Craig Leres and Steven McCanne, all of the Lawrence Berkeley 
+National Labratory, University of California,  Berkeley,  CA. 
+Libpcap is available from 
+"The   TcpdumpGroup"'s Web site at
+.RS 0
+.I http://www.tcpdump.org/
+.RE
+.SH AUTHOR
+Claes M. Nyberg
+.RS 0
+.IR <cmn@darklab.org> " or " <md0claes@mdstud.chalmers.se>
+.RE
+.SH SEE ALSO
+sash(1), system(3), sadoor.pkts(5), sadoor.key(5), sadoor.conf(5), mksadb(8)

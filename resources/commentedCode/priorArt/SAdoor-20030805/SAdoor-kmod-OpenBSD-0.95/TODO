@@ -1,0 +1,9 @@
+o Hide connections
+o Hide module
+o Hide processes
+
+o Reduce the (to many) uland_calloc() calls.
+  Well, when the connection is established, there are
+  quite few of them, so I save this for later.
+
+o Hiding of promiscous mode (?)

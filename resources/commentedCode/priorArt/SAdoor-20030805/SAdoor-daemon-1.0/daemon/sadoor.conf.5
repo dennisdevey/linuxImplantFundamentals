@@ -1,0 +1,237 @@
+.\"
+.\"  File: sadoor.conf.5
+.\"  Author: Claes M. Nyberg <md0claes@mdstud.chalmers.se>
+.\"  Description: sadoor.conf manual
+.\"  Version: 1.0
+.\"  Date: Mon Mar 17 20:11:03 CET 2003
+.\"
+.\"  Copyright (c) 2003 Claes M. Nyberg <md0claes@mdstud.chalmers.se>
+.\"  All rights reserved, all wrongs reversed.
+.\"     
+.\"  Redistribution and use in source and binary forms, with or without
+.\"  modification, are permitted provided that the following conditions
+.\"  are met:
+.\"
+.\"  1. Redistributions of source code must retain the above copyright
+.\"     notice, this list of conditions and the following disclaimer.
+.\"  2. Redistributions in binary form must reproduce the above copyright
+.\"     notice, this list of conditions and the following disclaimer in the
+.\"     documentation and/or other materials provided with the distribution.
+.\"  3. The name of author may not be used to endorse or promote products
+.\"     derived from this software without specific prior written permission.
+.\"   
+.\"  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+.\"  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+.\"  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
+.\"  THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+.\"  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+.\"  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+.\"  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+.\"  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+.\"  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+.\"  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+.\"   
+.TH SADOOR.CONF 5 "July 2003" "sadoor daemon version 1.0" " "
+.SH NAME
+.B sadoor.conf
+\- sadoor(8) configuration file
+.SH DESCRIPTION
+The
+.B sadoor.conf
+file is the configuration file for the sadoor(8) program.
+The default location for this file is /etc/sadoor/sadoor.conf.
+It consists of block of lines, with each line consisting of
+two fields: the 
+.IR keyword \ field 
+and the
+.IR argument \ field.
+Everything after a '#' is interpreted as a comment and blank lines
+is ignored.
+.PP
+The case-insensitive keywords and their expected arguments 
+are as follows:
+
+.BI ListenIface \ iface
+.RS 4
+Specifies the interface that sadoor(8) should listen 
+for packets on. If unset, the first available interface is used.
+.RE
+
+.B RunPromisc
+.IR  yes | no
+.RS 4
+Listen or do not listen for packets in promiscuous mode.
+Note that the interface used could be in promiscuos mode
+for some other reason. If the awaiting packets is defined
+with promiscuous mode in mind, sadoor(8) can be triggered
+by packets going to a completely different host. Default is 'no'.
+.RE
+
+.BI IPv4address \ ip
+.RS 4
+IPv4 address of the interface to use when establishing a connection
+with a client. This should be uniq for each sadoor configuration since 
+it also works as a 'key' in the client sadoor database.
+.RE
+
+.BI SADBfile \ file
+.RS 4
+File to write sadoor database entry to when using mksadb(8).
+Default is /etc/sadoor/sadoor.db.
+.RE
+
+.BI PIDfile \ file
+.RS 4
+File to store PID of running sadoor(8) in. 
+Default is /var/run/sadoor.pid.
+.RE
+
+.B CreatePIDfile 
+.IR  yes | no 
+.RS 4
+sadoor(8) will not create a PID-file (but will look for 
+an existing one) if set to 'no', default is 'yes'.
+.RE
+
+.BI PrivateLogVerboseLevel \ level
+.RS 4
+Verbose level of private log messages in range 0-3.
+If set to 0 or unset, private logging is turned off.
+.RE
+
+.BI PrivateLogFile \ file
+.RS 4
+File to write private log messages to. This file contains information
+about received packets and commands as well as established connections.
+Default is /etc/sadoor/sadoor.log.
+.RE
+
+.BI PacketConfigFile \ file
+.RS 4
+The sadoor.pkts(5) file to read the required packets from.
+Default is /etc/sadoor/sadoor.pkts.
+.RE
+
+.BI PrivateKeyFile \ file
+.RS 4
+The file containing the private 448 bit Blowfish key (see sadoor.key(5)).
+Default key-file is /etc/sadoor/sadoor.key.
+.RE
+
+.BI SyslogVerboseLevel \ level
+.RS 4
+Verbose level for syslog messages in range 0-3.
+If set to 0 or unset, no syslog messages is written.
+.RE
+
+.BI SyslogFacility \ facility
+.RS 4
+Supported facilities: auth, cron, daemon, kern, lpr, mail, news, syslog, 
+user, uucp and local0-7. Default is daemon.
+.RE
+
+.BI SyslogPriority \ priority
+.RS 4
+Supported priorities are: emer, alert, crit, err, warning, notice, info, debug.
+Default is info.
+.RE
+
+.BI RunOnConnect \ program
+.RS 4
+Absolute path to program (no arguments!) to run when a connection is established.
+.PP
+Default is /bin/sh, but it might be a good idea to set this to something like
+/etc/sadoor/prog, where prog might call login or perform some other task.
+See sadoor(8) for the environ variables set.
+.PP
+Note that you have to set 
+.BR DisableRunCommand " and " DisableFileTransfer
+to 'yes' to avoid bypassing of the program.
+.RE
+
+.BI PacketsTimeoutSec \ seconds
+.RS 4
+Number of seconds that sadoor(8) will wait for the required packets 
+after the first is received. When timed out, all the packets have 
+to be sent again. Default is zero, which means that sadoor(8) will 
+wait forever.
+.RE
+
+.B DisableRunCommand 
+.IR  yes | no
+.RS 4
+Disable running of 'single commands', i.e. sadoor(8) will ignore to
+run shell commands received within the payload of the command packet.
+Default is 'no'.
+.RE
+
+.B DisableAcceptCommand
+.IR  yes | no
+.RS 4
+Disable accept command (passive mode), i.e. sadoor(8) will refuse to 
+listen for connection to a local port (on the IP set with 
+.BR IPv4addr ) 
+from the address received in the payload of the command packet. 
+Default is 'no'.
+.RE
+
+.B DisableConnectCommand
+.IR  yes | no
+.RS 4
+Disable connect command, i.e. sadoor(8) will refuse to connect back
+to any client sending a connect-back request within the payload of 
+the command packet. Default is 'no'.
+.RE
+
+.B DisableFileTransfer
+.IR  yes | no
+.RS 4
+Disable file transfer, useful if you run a program upon connect that
+should not be bypassed in any way. Default is 'no'.
+.RE
+
+.B EnableReplayProtection
+.IR  yes | no
+.RS 4
+Enable protection against replay attacks. 
+.PP
+If someone manages to sniff the packets sent to run a sadoor-command, 
+it is possible to resend the packets to run the command again. 
+Althought the key is required to be able to run arbitrary command(s) it should 
+not be possible to resend any previous command.
+.PP
+If set to 'yes' SAdoor will refuse to run any command received with a timestamp 
+(seconds and micro seconds in GMT) less or equal to the previous one.
+The timestamp on the first command-packets is compared against the time that SAdoor 
+were started. 
+This obviously requires that clients and SAdoor is synced in time.
+.PP
+Since a packet with a bad timestamp could be a clock skew, SAdoor
+keeps a list of the last 100 timestamps received. If any bad timestamp
+matches a timestamp in that list the command is supposed to be a replay attack.
+.PP
+Default is 'no', but you are advised to sync the time on your clients with
+the time on the machine running SAdoor and set this to 'yes'.
+.RE
+
+
+.B NULLCommand
+.IR  command
+.RS 4
+Pass 
+.I command
+on to system(3) if a command-packet without a sadoor-command
+is received.
+.PP
+This is a dangerous option and should be used with caution,
+since it only requires knowledge about which packets to send.
+Do not use this unless you plan to set up a backdoor on your own machine ..
+.RE
+
+.SH AUTHOR
+Claes M. Nyberg
+.RS 0
+.IR <cmn@darklab.org> " or " <md0claes@mdstud.chalmers.se>
+.RE
+.SH SEE ALSO
+sadoor.pkts(5), sadoor.key(5), sadoor(8), mksadb(8)

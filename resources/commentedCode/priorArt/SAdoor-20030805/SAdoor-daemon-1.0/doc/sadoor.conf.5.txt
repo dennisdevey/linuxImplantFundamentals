@@ -1,0 +1,167 @@
+SADOOR.CONF(5)                                     SADOOR.CONF(5)
+
+NAME
+       sadoor.conf - sadoor(8) configuration file
+
+DESCRIPTION
+       The  sadoor.conf  file  is  the configuration file for the
+       sadoor(8) program.  The default location for this file  is
+       /etc/sadoor/sadoor.conf.   It  consists of block of lines,
+       with each line consisting of two fields: the keyword field
+       and  the argument field.  Everything after a '#' is inter-
+       preted as a comment and blank lines is ignored.
+
+       The case-insensitive keywords and their expected arguments
+       are as follows:
+
+       ListenIface iface
+           Specifies  the  interface that sadoor(8) should listen
+           for packets on. If unset, the first  available  inter-
+           face is used.
+
+       RunPromisc yes|no
+           Listen  or  do  not  listen for packets in promiscuous
+           mode.  Note  that  the  interface  used  could  be  in
+           promiscuos mode for some other reason. If the awaiting
+           packets is defined  with  promiscuous  mode  in  mind,
+           sadoor(8)  can be triggered by packets going to a com-
+           pletely different host. Default is 'no'.
+
+       IPv4address ip
+           IPv4 address of the interface to use when establishing
+           a  connection  with  a daemon. This should be uniq for
+           each sadoor configuration since it  also  works  as  a
+           'key' in the daemon sadoor database.
+
+       SADBfile file
+           File  to  write  sadoor  database  entry to when using
+           mksadb(8).  Default is /etc/sadoor/sadoor.db.
+
+       PIDfile file
+           File to store PID of running sadoor(8) in.  Default is
+           /var/run/sadoor.pid.
+
+       CreatePIDfile yes|no
+           sadoor(8)  will  not  create a PID-file (but will look
+           for an existing one) if set to 'no', default is 'yes'.
+
+       PrivateLogVerboseLevel level
+           Verbose  level  of  private log messages in range 0-3.
+           If set to 0 or unset, private logging is turned off.
+
+       PrivateLogFile file
+           File to write private log messages to. This file  con-
+           tains  information about received packets and commands
+           as  well  as  established  connections.   Default   is
+           /etc/sadoor/sadoor.log.
+
+       PacketConfigFile file
+           The  sadoor.pkts(5)  file to read the required packets
+           from.  Default is /etc/sadoor/sadoor.pkts.
+
+       PrivateKeyFile file
+           The file containing the private 448 bit  Blowfish  key
+           (see     sadoor.key(5)).     Default    key-file    is
+           /etc/sadoor/sadoor.key.
+
+       SyslogVerboseLevel level
+           Verbose level for syslog messages in  range  0-3.   If
+           set to 0 or unset, no syslog messages is written.
+
+       SyslogFacility facility
+           Supported  facilities:  auth, cron, daemon, kern, lpr,
+           mail, news, syslog, user, uucp and  local0-7.  Default
+           is daemon.
+
+       SyslogPriority priority
+           Supported  priorities  are:  emer,  alert,  crit, err,
+           warning, notice, info, debug.  Default is info.
+
+       RunOnConnect program
+           Absolute path to program (no arguments!) to run when a
+           connection is established.
+
+           Default is /bin/sh, but it might be a good idea to set
+           this to something like  /etc/sadoor/prog,  where  prog
+           might  call  login  or  perform  some other task.  See
+           sadoor(8) for the environ variables set.
+
+           Note that you have to set DisableRunCommand  and  Dis-
+           ableFileTransfer  to  'yes'  to avoid bypassing of the
+           program.
+
+       PacketsTimeoutSec seconds
+           Number of seconds that sadoor(8)  will  wait  for  the
+           required  packets  after  the  first is received. When
+           timed out, all the packets  have  to  be  sent  again.
+           Default  is zero, which means that sadoor(8) will wait
+           forever.
+
+       DisableRunCommand yes|no
+           Disable running of 'single commands',  i.e.  sadoor(8)
+           will  ignore to run shell commands received within the
+           payload of the command packet.  Default is 'no'.
+
+       DisableAcceptCommand yes|no
+           Disable accept command (passive mode), i.e.  sadoor(8)
+           will  refuse  to listen for connection to a local port
+           (on  the  IP  set  with  IPv4addr)  from  the  address
+           received   in  the  payload  of  the  command  packet.
+           Default is 'no'.
+
+       DisableConnectCommand yes|no
+           Disable connect command, i.e. sadoor(8) will refuse to
+           connect  back  to  any  daemon  sending a connect-back
+           request within the  payload  of  the  command  packet.
+           Default is 'no'.
+
+       DisableFileTransfer yes|no
+           Disable  file  transfer,  useful  if you run a program
+           upon connect that should not be bypassed in  any  way.
+           Default is 'no'.
+
+       EnableReplayProtection yes|no
+           Enable protection against replay attacks.
+
+           If  someone manages to sniff the packets sent to run a
+           sadoor-command, it is possible to resend  the  packets
+           to  run  the  command  again.   Althought  the  key is
+           required to be able to  run  arbitrary  command(s)  it
+           should not be possible to resend any previous command.
+
+           If set to 'yes' SAdoor will refuse to run any  command
+           received  with  a timestamp (seconds and micro seconds
+           in GMT) less or equal to the previous one.  The times-
+           tamp  on the first command-packets is compared against
+           the time that SAdoor  were  started.   This  obviously
+           requires that daemons and SAdoor is synced in time.
+
+           Since  a  packet with a bad timestamp could be a clock
+           skew, SAdoor keeps a list of the last  100  timestamps
+           received.  If any bad timestamp matches a timestamp in
+           that list the command  is  supposed  to  be  a  replay
+           attack.
+
+           Default  is 'no', but you are advised to sync the time
+           on your daemons with the time on the  machine  running
+           SAdoor and set this to 'yes'.
+
+       NULLCommand command
+           Pass command on to system(3) if a command-packet with-
+           out a sadoor-command is received.
+
+           This is a dangerous option and  should  be  used  with
+           caution,  since it only requires knowledge about which
+           packets to send.  Do not use this unless you  plan  to
+           set up a backdoor on your own machine ..
+
+AUTHOR
+       Claes M. Nyberg
+       <cmn@darklab.org> or <md0claes@mdstud.chalmers.se>
+
+SEE ALSO
+       sadoor.pkts(5), sadoor.key(5), sadoor(8), mksadb(8)
+
+sadoor daemon version 1.0    July 2003                          3
+
+

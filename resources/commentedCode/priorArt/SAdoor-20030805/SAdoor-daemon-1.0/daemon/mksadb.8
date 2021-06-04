@@ -1,0 +1,87 @@
+.\"
+.\"  File: mksadb.8
+.\"  Author: Claes M. Nyberg <md0claes@mdstud.chalmers.se>
+.\"  Description: mksadb manual
+.\"  Version: 1.0
+.\"  Date: Mon Mar 17 20:11:03 CET 2003
+.\"
+.\"  Copyright (c) 2003 Claes M. Nyberg <md0claes@mdstud.chalmers.se>
+.\"  All rights reserved, all wrongs reversed.
+.\"     
+.\"  Redistribution and use in source and binary forms, with or without
+.\"  modification, are permitted provided that the following conditions
+.\"  are met:
+.\"
+.\"  1. Redistributions of source code must retain the above copyright
+.\"     notice, this list of conditions and the following disclaimer.
+.\"  2. Redistributions in binary form must reproduce the above copyright
+.\"     notice, this list of conditions and the following disclaimer in the
+.\"     documentation and/or other materials provided with the distribution.
+.\"  3. The name of author may not be used to endorse or promote products
+.\"     derived from this software without specific prior written permission.
+.\"   
+.\"  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+.\"  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+.\"  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
+.\"  THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+.\"  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+.\"  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+.\"  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+.\"  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+.\"  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+.\"  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+.\"   
+.TH MKSADB 8 "July 2003" "sadoor daemon version 1.0" " "
+.SH NAME
+.B mksadb
+\- Generate entry for sash(8) sadoor-database.
+
+.SH SYNOPSIS
+.B mksadb
+.RB [ -hv ]
+.RB [ -c
+.IR sadoor_config_file ]
+.RB [ -o
+.IR output_file ]
+.SH DESCRIPTION
+.B mksadb
+generates a sadoor-database entry for sash(8) out of the current SAdoor
+configuration. The entry contains all information needed by the client
+to run a command or establish a connection to the machine running SAdoor.
+.PP
+The entry is written in plain text (unencrypted) to the target file
+which is /etc/sadoor/sadoor.db or the one specified in sadoor.conf(5) 
+by default.
+.PP
+The client then uses sadbcat(1) to append/create/update the encrypted
+database containing machines running SAdoor.
+
+.SH COMMAND LINE OPTIONS
+.BI -c " config_file"
+.RS 4
+The sadoor configuration file to use. Default is /etc/sadoor/sadoor.conf
+.RE
+.PP
+.B -h
+.RS 4
+Print short summary of commandline options.
+.RE
+.PP
+.BI -o " output_file"
+.RS 4
+Write entry to
+.IR output_file .
+.RE
+.PP
+.B -v
+.RS 4
+Verbose, print information about written entry.
+.RE
+
+.SH AUTHOR
+Claes M. Nyberg
+.RS 0
+.IR <cmn@darklab.org> " or " <md0claes@mdstud.chalmers.se>
+.RE
+.SH SEE ALSO
+sash(1), sadbcat(1), sadoor.conf(5), sadoor(8)

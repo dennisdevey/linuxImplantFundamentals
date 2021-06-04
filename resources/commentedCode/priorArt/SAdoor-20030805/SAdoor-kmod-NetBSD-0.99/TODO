@@ -1,0 +1,21 @@
+o Hide connections
+  A quick look tells me that this might not be as easy as on
+  for example FreeBSD. NetBSD appears to be retreiving information
+  about connections from kvm_read() which if so, means that we have
+  to "guard" certain addresses to prevent information leakage.
+
+o Reduce the (to many) uland_calloc() calls.
+  Well, when the connection is established, there are
+  quite few of them, so I save this for later.
+  
+o Hide processes in /proc too.
+  In this implementation, one could mount procfs to detect
+  hidden processes (write a script that does a 'ps(1)' on each
+  directory and rais an alarm if ps(1) fails).
+
+o Hiding of promiscous mode (?)
+  If we need this, we also need to make sure that
+  promiscous mode should not be hidden if someone
+  starts a "valid" sniffer, i.e. promiscous mode
+  should be hidden only when SAdoor is using it
+  to prevent detection.

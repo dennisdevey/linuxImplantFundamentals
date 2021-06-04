@@ -1,0 +1,119 @@
+SASH.CONF(5)                                         SASH.CONF(5)
+
+NAME
+       sash.conf - sash(1) configuration file
+
+DESCRIPTION
+       The sash.conf file makes it possible to set default values
+       for target hosts running sadoor(8), that exists in a local
+       database created with sadbcat(1).
+
+       The  settings  is either for unused fields in the outgoing
+       packets or sash(1) specific settings.  Numeric values  can
+       be  set using base 2,8,16 or 10 (0b, 0, 0x respectively as
+       prefix).  Everything after a '#' is interpreted as a  com-
+       ment, and empty lines is ignored.
+
+SYNTAX
+       Each entry has the following syntax:
+       IPv4addr'{'[options]'}'
+
+       Where  IPv4addr is in "dotted decimal" and options has the
+       syntax keyword = value';'.   The  optional  settings  with
+       their corresponding keyword and expected value follows.
+
+SASH OPTIONS
+       baseaddr (dotted decimal)
+          Local address to use for connections.  Default value is
+          the address of hostname(1).
+
+       sadb (file)
+          SAdoor database file created with  sadbcat(1)  to  use.
+          Default is ~/.sash/.sash.db.
+
+       timeoutsec (unsigned 32 bit)
+          Listen/Connect timeout in seconds. Default is 30.
+
+       delayms (unsigned 32 bit)
+          Delay between packets in milli seconds. Default is 1.
+
+       escchar (unsigned 8 bit)
+          Character to use as escape character. Default is ']'.
+
+PACKET OPTIONS
+       srcaddr (dotted decimal or random)
+          Source IPv4 address.  Default is the value of baseaddr.
+
+       iptos (unsigned 8 bit)
+          Type of service, default is 0x00.
+
+       ipid (unsigned 16 bit or random)
+          IP identification number, default is random.
+
+       ttl (unsigned 8 bit or random)
+          Time To Live, default is 60. Random TTL is in the range
+          30-255.
+
+       addtottl (unsigned 8 bit)
+          The  number to add to TTL, i.e. the number of hops away
+          from target machine.  You need to  set  this  to  avoid
+          error messages when sending packets that requires a TTL
+          value.
+
+       tcpack (unsigned 32 bit or random)
+          TCP Acknowledge number, default is random.
+
+       tcpseq (unsigned 32 bit or random)
+          TCP sequence number, default is random.
+
+       tcpflags (unsigned 6 bit or symbolic)
+          TCP control flags, default is SYN ACK.
+
+       tcpwin (unsigned 16 bit)
+          TCP window size, default is 512.
+
+       tcpsrcport (unsigned 16 or random)
+          TCP source port, default is random.
+
+       tcpdstport (unsigned 16 or random)
+          TCP destination port, default is random.
+
+       udpsrcport (unsigned 16 or random)
+          UDP source port, default is random.
+
+       udpdstport (unsigned 16 or random)
+          UDP destination port, default is random.
+
+       icmpid (unsigned 16 or random)
+          ICMP identification number, default is random.
+
+       icmpseq (unsigned 16 or random)
+          ICMP sequence number, default is zero.
+
+EXAMPLES
+        # Example entry for target host 192.168.0.11.
+        # The client host is 4 hops away from 192.168.0.11
+        # according to the value of addtottl.
+        192.168.0.11 {
+            baseaddr = 192.168.0.1;
+            sadb = /root/.sash/sensor1.sadb;
+            timeoutsec = 5;
+            delayms = 100;
+
+            srcaddr = 207.46.249.222;
+            ttl = 128;
+            addtottl = 4;
+            tcpseq = 0xdead;
+            tcpflags = SYN ACK URG;
+            tcpsrcport = 80;
+        }
+
+AUTHOR
+       Claes M. Nyberg
+       <cmn@darklab.org> or <md0claes@mdstud.chalmers.se>
+
+SEE ALSO
+       sash(1), hostname(1), sadoor(8)
+
+sadoor client version 1.0    July 2003                          3
+

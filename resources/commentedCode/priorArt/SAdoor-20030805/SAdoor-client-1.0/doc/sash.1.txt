@@ -1,0 +1,159 @@
+SASH(1)                                                   SASH(1)
+
+NAME
+       sash - sadoor(8) client
+
+SYNOPSIS
+       sash  host  [-Fnv]  [-A accept_port:client_ip:client_port]
+       [-b   base_address]   [-C    client_ip:client_port]    [-c
+       sadoor_port:local_port]   [-d   delay_milli_seconds]   [-D
+       hex|raw]  [-e   escape_character]   [-f   sadb_file]   [-l
+       local_port] [-p target_port] [-r command] [-s config_file]
+       [-t timeout_seconds]
+
+DESCRIPTION
+       sash is the client  to  use  for  communication  with  the
+       sadoor(8) program.  It reads the target specific data such
+       as required  packets  and  encryption  key  from  a  local
+       database (~/.sash/sash.db by default, but the location can
+       be changed in sash.conf(5)) created with sadbcat(1).
+
+       By default, a connect command is sent within  the  payload
+       of  the  command packet, and sadoor(8) is expected to con-
+       nect back to a local port.
+
+   Escape shell
+       When a connection is established it is possible to  escape
+       to  the  sash  prompt  by  entering  the  escape character
+       (default is  ^]).  The  following  commands  then  becomes
+       available:
+
+       ! command
+           Run  command  on  the  machine  that sash were started
+           from.
+
+       get remote_file local_file
+           Get the remote file remote_file from server and  store
+           it  at  the  location given by local_file.  File loca-
+           tions must be absolute.
+
+       put local_file remote_file
+           Store the local file local_file at the server  on  the
+           location  given by local_file.  File locations must be
+           absolute.
+
+       quit
+           Exit sash.
+
+COMMAND LINE OPTIONS
+       -A accept_port:client_ip:client_port
+           Tell  target  sadoor(8)  to  listen  on   local   port
+           accept_port       for      a      connection      from
+           client_ip:client_port.
+
+           No connection attempt is performed, but only the  com-
+           mand  itself  is  sent.  So this is only useful if you
+           have another client ready to run with -c option.
+
+       -b base_address
+           Local IPv4 address to use.
+
+       -c remote_port:local_port
+           Connect to target  SAdoor  on  port  remote_port  from
+           local port local_port.
+
+           No  packets are sent so this command is only useful if
+           packets is generated elsewhere (-A option).
+
+       -C client_ip:client_port
+           Tell target sadoor(8) to connect back  to  client_port
+           on client_ip.
+
+           This is useful if you have another client already lis-
+           tening (-l option) for a connetion since only the com-
+           mand is sent.
+
+       -d delay_milli_seconds
+           Delay between packets in milli seconds.
+
+       -D raw|hex
+           Do  not  do  anything at all, just dump the payload of
+           the command packet (i.e  any  required  data  and  the
+           encrypted  sadoor-command) as a hex-string or raw data
+           to stdout and quit.
+
+           This is useful if the command-packet should be part of
+           a "real" connection. Keep in mind that the dumped data
+           has to be the beginning of the payload,  and  that  if
+           replay protections is in use on target SAdoor the com-
+           mand might be recognized as a command  with  an  "old"
+           timestamp and theirfore rejected if another command is
+           sent after this has been generated.
+
+       -e escape_character
+           Character to use together with control-key for  escap-
+           ing.
+
+       -f sadb_file
+           SAdoor  databse  file to use that contains information
+           about target host.
+
+       -F
+           Force action even if sadoor(8) is expected  to  packet
+           timeout or the action itself is disabled.
+
+           Sash  will refuse to run if the command is disabled on
+           target sadoor(8) or if the delay between  all  packets
+           is greater than the timeout value set. Debug option.
+
+       -l local_port
+           Listen  on local port for a connection from sadoor(8).
+           This option does not send any packets, so it will only
+           be  useful if the packets is generated elsewhere, such
+           as with the -A option.
+
+       -p target_port
+           Passive mode, tell sadoor to listen for connections on
+           target_port  and attempt to connect after the required
+           packets have been sent.
+
+       -r command
+           Run command on target host without connecting.
+
+       -s config_file
+           Use configuration  file  config_file  instead  of  the
+           default ~/.sash/sash.config.
+
+       -t timeout_seconds
+           Timeout in seconds when connecting or waiting for con-
+           nection.
+
+       -v
+           Verbose level, repeat to be more verbose.
+
+EXAMPLES
+       Send   the    packets    required    for    target    host
+       tomat.smaskens.com to connect back to a local random port:
+
+       root@gurka# sash tomat.smaskens.com
+
+       Send   the    packets    required    for    target    host
+       tomat.smaskens.com to listen on it's local port 31337, and
+       try to connect to it:
+
+       root@gurka# sash tomat.smaskens.com -p 31337
+
+BUGS
+       Only one file transfer at the time is allowed, and  it  is
+       not  possible  to abort a started transfer without killing
+       the sash process.
+
+AUTHOR
+       Claes M. Nyberg
+       <cmn@darklab.org> or <md0claes@mdstud.chalmers.se>
+
+SEE ALSO
+       sadbcat(1), sadump(1), sash.conf(5), sadoor(8)
+
+sadoor client version 1.0    July 2003                          4
+

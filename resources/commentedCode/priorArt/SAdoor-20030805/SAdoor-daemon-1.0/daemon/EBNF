@@ -1,0 +1,30 @@
+EBNF for SAdoor packet configuration.
+-------------------------------------
+
+<sadoor_packets> ::= +{<key_packet>} <command_packet>
+<key_packet> ::= 'keypkt' ['(' <replicate> ')'] '{' <packet> '}'
+<command_packet> ::=  'cmdpkt' '{' <packet> '}'
+
+<packet> ::= 'ip' '{' 'daddr' '=' <ipv4_addr> ';' <ip_header_options> <proto_header> '}'
+
+<ip_header_options> ::= ['tos' '=' <u8> ';'] ['id' '=' <u16> ';'] ['ttl' '=' <u8> ';'] ['saddr' '=' <ipv4_addr> ';']
+
+<proto_header> ::= <tcp_header> | <udp_header> | <icmp_header>
+
+<tcp_header> ::= 'tcp' '{' <tcp_header_options> ['data' '{' <data_string> '}'] '}'
+<tcp_header_options> ::= ['dport' '=' <u16> ';'] ['sport' '=' <u16> ';'] ['seq' '=' <u32> ';'] 
+                         ['ack' '=' <u32> ';'] ['flags' '=' <tcp_flags> ';']
+
+<udp_header> ::= 'udp' '{' <udp_header_options> ['data' '{' <data_string> '}'] '}'
+<udp_header_options> ::= ['dport' '=' <u16> ';'] ['sport' '=' <u16> ';']
+
+<icmp_header> ::= 'icmp' '{' '<icmp_header_options> [ 'data' '{' <data_string> '}' ] '}'
+<icmp_header_options> ::= ['code' '=' <icmp_code> ';'] ['type' '=' <icmp_type> ';']
+
+
+<tcp_flags> ::= <u6> | +{<tcp_flag_names>}
+<tcp_flag_names> ::= 'URG' | 'ACK' | 'PSH' | 'RST' | 'SYN' | 'FIN'
+<icmp_code> ::= <u8>
+<icmp_type> ::= <u8>
+<replicate> ::= <u16>
+<ipv4_addr> ::= <u8> '.' <u8> '.' <u8> '.' <u8>

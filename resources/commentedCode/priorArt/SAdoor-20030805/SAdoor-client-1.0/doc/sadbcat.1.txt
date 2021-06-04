@@ -1,0 +1,29 @@
+SADBCAT(1)                                             SADBCAT(1)
+
+NAME
+       sadbcat - Append/Create/Update encrypted SADB file.
+
+SYNOPSIS
+       sadbcat [-v] sadoor.db [ sadoor.db ... ] sash.db
+
+DESCRIPTION
+       sadbcat appends/creates/updates an encrypted database file
+       (sash.db) from/with unencrypted sadoor.db files  generated
+       with mksadb(8).
+
+       This  database  is then used by sash(1) when communicating
+       with the target machine running sadoor(8).
+
+COMMAND LINE OPTIONS
+       -v
+           Verbose mode
+
+AUTHOR
+       Claes M. Nyberg
+       <cmn@darklab.org> or <md0claes@mdstud.chalmers.se>
+
+SEE ALSO
+       sadump(1), sash(1), mksadb(8), sadoor(8)
+
+sadoor client version 1.0    July 2003                          1
+

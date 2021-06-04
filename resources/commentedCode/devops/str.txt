@@ -1,0 +1,151 @@
+/lib64/ld-linux-x86-64.so.2
+tY"8X
+_ITM_deregisterTMCloneTable
+__gmon_start__
+_ITM_registerTMCloneTable
+pcap_geterr
+pcap_freecode
+pcap_lookupnet
+pcap_setfilter
+pcap_datalink
+pcap_loop
+pcap_lookupdev
+pcap_close
+pcap_compile
+pcap_open_live
+exit
+inet_ntoa
+puts
+putchar
+__ctype_b_loc
+stderr
+fwrite
+fprintf
+__cxa_finalize
+__libc_start_main
+ntohs
+libpcap.so.0.8
+libc.so.6
+GLIBC_2.3
+GLIBC_2.2.5
+u/UH
+[]A\A]A^A_
+Who is it?
+BANG!! You're in.
+Sniffer example using libpcap
+sniffex
+%s - %s
+Copyright (c) 2005 The Tcpdump Group
+THERE IS ABSOLUTELY NO WARRANTY FOR THIS PROGRAM.
+Usage: %s [interface]
+Options:
+    interface    Listen on <interface> for packets.
+%05d   
+%02x 
+Packet number %d:
+   * Invalid IP header length: %u bytes
+       From: %s
+         To: %s
+   Protocol: TCP
+   Protocol: UDP
+   Protocol: ICMP
+   Protocol: IP
+   Protocol: unknown
+   * Invalid TCP header length: %u bytes
+   Src port: %d
+   Dst port: %d
+   Payload (%d bytes):
+error: unrecognized command-line options
+Couldn't find default device: %s
+Couldn't get netmask for device %s: %s
+Device: %s
+Number of packets: %d
+Filter expression: %s
+Couldn't open device %s: %s
+%s is not an Ethernet
+Couldn't parse filter %s: %s
+Couldn't install filter %s: %s
+Capture complete.
+;*3$"
+GCC: (Debian 10.2.1-6) 10.2.1 20210110
+crtstuff.c
+deregister_tm_clones
+__do_global_dtors_aux
+completed.0
+__do_global_dtors_aux_fini_array_entry
+frame_dummy
+__frame_dummy_init_array_entry
+sniffex.c
+count.0
+__FRAME_END__
+__GNU_EH_FRAME_HDR
+_GLOBAL_OFFSET_TABLE_
+__init_array_end
+__init_array_start
+_DYNAMIC
+print_payload
+__libc_csu_fini
+pcap_close
+__gmon_start__
+puts@GLIBC_2.2.5
+print_app_banner
+exit@GLIBC_2.2.5
+putchar@GLIBC_2.2.5
+__libc_start_main@GLIBC_2.2.5
+pcap_open_live
+pcap_geterr
+_ITM_deregisterTMCloneTable
+pcap_compile
+bang_func
+_IO_stdin_used
+print_hex_ascii_line
+_ITM_registerTMCloneTable
+__data_start
+pcap_lookupnet
+__ctype_b_loc@GLIBC_2.3
+__cxa_finalize@GLIBC_2.2.5
+ntohs@GLIBC_2.2.5
+__TMC_END__
+print_app_usage
+__dso_handle
+pcap_datalink
+__libc_csu_init
+inet_ntoa@GLIBC_2.2.5
+pcap_setfilter
+__bss_start
+pcap_lookupdev
+pcap_freecode
+stderr@GLIBC_2.2.5
+got_packet
+pcap_loop
+fwrite@GLIBC_2.2.5
+_edata
+fprintf@GLIBC_2.2.5
+main
+.symtab
+.strtab
+.shstrtab
+.interp
+.note.gnu.build-id
+.note.ABI-tag
+.gnu.hash
+.dynsym
+.dynstr
+.gnu.version
+.gnu.version_r
+.rela.dyn
+.rela.plt
+.init
+.plt.got
+.text
+.fini
+.rodata
+.eh_frame_hdr
+.eh_frame
+.init_array
+.fini_array
+.dynamic
+.got.plt
+.data
+.bss
+.comment

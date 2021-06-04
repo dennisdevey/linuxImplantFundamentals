@@ -1,0 +1,200 @@
+.\"
+.\"  File: sash.conf.5
+.\"  Author: Claes M. Nyberg <md0claes@mdstud.chalmers.se>
+.\"  Description: sash.conf manual
+.\"  Version: 1.0
+.\"  Date: Mon Mar 17 20:11:03 CET 2003
+.\"
+.\"  Copyright (c) 2003 Claes M. Nyberg <md0claes@mdstud.chalmers.se>
+.\"  All rights reserved, all wrongs reversed.
+.\"     
+.\"  Redistribution and use in source and binary forms, with or without
+.\"  modification, are permitted provided that the following conditions
+.\"  are met:
+.\"
+.\"  1. Redistributions of source code must retain the above copyright
+.\"     notice, this list of conditions and the following disclaimer.
+.\"  2. Redistributions in binary form must reproduce the above copyright
+.\"     notice, this list of conditions and the following disclaimer in the
+.\"     documentation and/or other materials provided with the distribution.
+.\"  3. The name of author may not be used to endorse or promote products
+.\"     derived from this software without specific prior written permission.
+.\"   
+.\"  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+.\"  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+.\"  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
+.\"  THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+.\"  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+.\"  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+.\"  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+.\"  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+.\"  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+.\"  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+.\"   
+.TH SASH.CONF 5 "July 2003" "sadoor client version 1.0" " "
+.SH NAME
+.B sash.conf
+\- sash(1) configuration file
+.SH DESCRIPTION
+The
+.B sash.conf
+file makes it possible to set default values for target hosts running sadoor(8),
+that exists in a local database created with sadbcat(1).
+.PP
+The settings is either for unused fields in the outgoing packets or sash(1)
+specific settings.
+.PP.
+Numeric values can be set using base 2,8,16 or 10
+(0b, 0, 0x respectively as prefix).
+Everything after a '#' is interpreted as a comment, and empty lines
+is ignored.
+.SH SYNTAX
+Each entry has the following syntax:
+.RS 0
+.IR IPv4addr '{'[ options ]'}'
+.RE
+.PP
+Where
+.I IPv4addr
+is in "dotted decimal" and options has the syntax
+.IR keyword " = " value ';'.
+The optional settings with their corresponding
+keyword and expected value follows.
+
+.SH SASH OPTIONS
+.BR baseaddr " (dotted decimal)"
+.RS 3
+Local address to use for connections. 
+Default value is the address of hostname(1).
+.RE
+.PP
+.BR sadb " (file)"
+.RS 3
+SAdoor database file created with sadbcat(1) to use.
+Default is ~/.sash/.sash.db.
+.RE
+.PP
+.BR timeoutsec " (unsigned 32 bit)"
+.RS 3
+Listen/Connect timeout in seconds. Default is 30.
+.RE
+.PP
+.BR delayms " (unsigned 32 bit)"
+.RS 3
+Delay between packets in milli seconds. Default is 1.
+.RE
+.PP
+.BR escchar " (unsigned 8 bit)"
+.RS 3
+Character to use as escape character. Default is ']'.
+.RE
+.PP
+
+.SH PACKET OPTIONS
+.BR srcaddr " (dotted decimal or " random ")"
+.RS 3
+Source IPv4 address. 
+Default is the value of 
+.BR baseaddr .
+.RE
+.PP
+.BR iptos " (unsigned 8 bit)"
+.RS 3
+Type of service, default is 0x00.
+.RE
+.PP
+.BR ipid " (unsigned 16 bit or " random ")"
+.RS 3
+IP identification number, default is random.
+.RE
+.PP
+.BR ttl " (unsigned 8 bit or " random ")"
+.RS 3
+Time To Live, default is 60. Random TTL is in the range 30-255.
+.RE
+.PP
+.BR addtottl " (unsigned 8 bit)"
+.RS 3
+The number to add to TTL, i.e. the number of hops away
+from target machine.
+You need to set this to avoid error messages when
+sending packets that requires a TTL value.
+.RE
+.PP
+.BR tcpack " (unsigned 32 bit or " random ")"
+.RS 3
+TCP Acknowledge number, default is random.
+.RE
+.PP
+.BR tcpseq " (unsigned 32 bit or " random ")"
+.RS 3
+TCP sequence number, default is random.
+.RE
+.PP
+.BR tcpflags " (unsigned 6 bit or symbolic)"
+.RS 3
+TCP control flags, default is SYN ACK.
+.RE
+.PP
+.BR tcpwin " (unsigned 16 bit)"
+.RS 3
+TCP window size, default is 512.
+.RE
+.PP
+.BR tcpsrcport " (unsigned 16 or " random ")"
+.RS 3
+TCP source port, default is random.
+.RE
+.PP
+.BR tcpdstport " (unsigned 16 or " random ")"
+.RS 3
+TCP destination port, default is random.
+.RE
+.PP
+.BR udpsrcport " (unsigned 16 or " random ")"
+.RS 3
+UDP source port, default is random.
+.RE
+.PP
+.BR udpdstport " (unsigned 16 or " random ")"
+.RS 3
+UDP destination port, default is random.
+.RE
+.PP
+.BR icmpid " (unsigned 16 or " random ")"
+.RS 3
+ICMP identification number, default is random.
+.RE
+.PP
+.BR icmpseq " (unsigned 16 or " random ")"
+.RS 3
+ICMP sequence number, default is zero.
+.RE
+.PP
+
+
+.SH EXAMPLES
+ # Example entry for target host 192.168.0.11.
+ # The client host is 4 hops away from 192.168.0.11
+ # according to the value of addtottl.
+ 192.168.0.11 {
+     baseaddr = 192.168.0.1;
+     sadb = /root/.sash/sensor1.sadb;
+     timeoutsec = 5;
+     delayms = 100;
+
+     srcaddr = 207.46.249.222;
+     ttl = 128;
+     addtottl = 4;
+     tcpseq = 0xdead;
+     tcpflags = SYN ACK URG;
+     tcpsrcport = 80;
+ }
+
+.SH AUTHOR
+Claes M. Nyberg
+.RS 0
+.IR <cmn@darklab.org> " or " <md0claes@mdstud.chalmers.se>
+.RE
+.SH SEE ALSO
+sash(1), hostname(1), sadoor(8)

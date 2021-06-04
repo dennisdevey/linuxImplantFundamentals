@@ -1,0 +1,255 @@
+SADOOR.PKTS(5)                                     SADOOR.PKTS(5)
+
+NAME
+       sadoor.pkts - sadoor(8) packet configuration file
+
+DESCRIPTION
+       The  sadoor.pkts file contains the packets required by the
+       sadoor(8) program to run a command or establish a  connec-
+       tion  to  a daemon.  Everything after a '#' is interpreted
+       as a comment, and empty lines are ignored.
+
+       The file is expected to start with a  set  of  key-packets
+       followed  by  a  command-packet. The minimum configuration
+       consists of a single key-packet  followed  by  a  command-
+       packet.
+
+SYNTAX
+       Key packet syntax:
+       keypkt ['('replicate')'] '{'packet'}'
+
+       Command packet syntax:
+       cmdpkt '{'packet'}'
+
+       Where replicate is the number of times that the key packet
+       should be replicated.  This is useful if you plan to set a
+       number  of equal packets to appear in sequence, the packet
+       is then expected by sadoor to appear replicate+1 number of
+       times.
+
+       Packet syntax:
+       ip '{'daddr = ipv4addr';' [options] proto'{'[options]'}}'
+
+       As  we can see above, a destination address and a protocol
+       (udp, tcp or icmp) is required in all packets.
+
+       The optional  settings  is  set  as  keyword  =  value';'.
+       Numeric  values can be set using base 2,8,16 or 10 (0b, 0,
+       0x respectively as prefix).  The  optional  settings  with
+       their corresponding keyword and expected value follows.
+
+   OPTIONAL IP SETTINGS
+       saddr (dotted decimal)
+           Source IPv4 address.
+
+       tos (unsigned 8 bit)
+           Type of service. Typical values:
+
+           Telnet/Rlogin      0x10
+           FTP control        0x10
+           FTP data           0x08
+           TFTP               0x10
+           SMTP command       0x10
+           SMTP data          0x08
+           DNS UDP query      0x10
+           DNS TCP query      0x00
+           DNS zone transfer  0x08
+           ICMP error/query   0x00
+           IGP                0x04
+           SNMP               0x04
+           BOOTP              0x00
+           NNTP               0x02
+
+       id (unsigned 16 bit)
+           Identification number
+
+       ttl (unsigned 8 bit)
+           Time  to  live.   If  set, it is possible to configure
+           sash(8) to add a value to the one required to  compen-
+           sate for reduction in transit.
+
+   OPTIONAL TCP SETTINGS
+       dport (unsigned 16 bit)
+           Destination port.
+
+       sport (unsigned 16 bit)
+           Source port.
+
+       flags (unsigned 6 bit or symbolic)
+           TCP control flags (URG ACK PSH RST SYN FIN).
+
+       seq (unsigned 32 bit)
+           Sequence number.
+
+       ack (unsigned 32 bit)
+           Acknowledge number.
+
+       data (see DATA section below)
+           Beginning of payload.
+
+   OPTIONAL UDP SETTINGS
+       dport (unsigned 16 bit)
+           Destination port.
+
+       sport (unsigned 16 bit)
+           Source port.
+
+       data (see DATA section below)
+           Beginning of payload.
+
+   OPTIONAL ICMP SETTINGS
+       type (unsigned 8 bit)
+           ICMP  type,  currently only 0 (echo reply) and 8 (echo
+           request) is supported.
+
+       code (unsigned 8 bit)
+           ICMP code, must be zero if set since type is  limited.
+
+       id (unsigned 16 bit)
+           Echo identity number.
+
+       seq (unsigned 16 bit)
+           Echo sequence number.
+
+       data (see DATA section below)
+           Beginning of payload.
+
+   DATA
+       Data  represents  the  beginning  of  the  payload  in the
+       received packet (with exception  for  the  command  packet
+       where  the  defined data also is an offset to the supplied
+       command).
+
+       Syntax:
+       data '{'data-string'}'
+
+       A data-string can't contain any whitespaces (or some  lan-
+       guage specific characters which will produce an error, eg.
+       write '\x7d' instead of '}').
+
+       The following escape sequences  is  supported  within  the
+       data-string:
+
+        \e - Escape character
+        \a - Bell character
+        \b - Backspace character
+        \f - Form-feed character
+        \n - New-line character
+        \r - Carriage return character
+        \t - Tab character
+        \v - Vertical tab character
+        \s - Space character
+        \\ - Backslash character
+        \x - Interpret the next two characters as hex
+
+EXAMPLES
+        # Three echo-request packets from any address
+        # (sash(8) can be configured to randomize or
+        # set a default value for source addresses
+        # on packets without a required source address).
+        keypkt(2)
+        {
+            ip {
+                daddr = 192.168.1.1;
+                icmp {
+                    type = 8;
+                    seq = 0;
+                }
+            }
+        }
+
+        # HTTP GET request
+        keypkt {
+            ip {
+                daddr = 192.168.1.1;
+                tcp {
+                    dport = 80;
+                    flags = PSH ACK;
+                    data { GET\s/index.html\sHTTP/1.0\r\n }
+            }
+        }
+
+        # UDP packet
+        # Here is a TTL value of 255 required, forcing the
+        # packet to be generated on the same segment as the
+        # machine running sadoor(8).
+        keypkt {
+            ip {
+                daddr = 192.168.1.1;
+                ttl = 255;
+                udp {
+                    dport = 2049;
+                    sport = 23056;
+                    data { \x01\x02\x03\x04\x05\x06 }
+                }
+            }
+        }
+
+        # TCP SYN scan?
+        # Since this packet has a TTL value set,
+        # the daemon needs to add it's number of hops
+        # away from the machine running sadoor(8).
+        keypkt {
+            ip {
+                 daddr = 192.168.1.1;
+                 ttl = 39;
+                 tcp {
+                    dport = 80;
+                    flags = S;
+                }
+            }
+        }
+
+        # Alot of requirements for this paket
+        keypkt {
+            ip {
+               daddr = 192.168.1.1;
+               saddr = 192.168.1.12;
+               id = 0xabcd;
+               ttl = 255;
+               tos = 0x10;
+               tcp {
+                   sport = 22309;
+                   dport = 23;
+                   flags = SYN ACK;
+                   seq = 0xc0ded;
+                   ack = 0xaaddccdd;
+                   data { thisisthebeginningofthepayload }
+               }
+           }
+        }
+
+        # The last packet is the command-packet.
+        # Since the beginning of the payload is
+        # set the (encrypted) command is expected right
+        # after the defined data.
+        cmdpkt
+        {
+            ip {
+                daddr = 192.168.1.1;
+                tcp {
+                    sport = 23456;
+                    seq = 0xaabbccdd;
+                    ack = 0xeeffaabb;
+                    data { command\soffset\sdata }
+                }
+            }
+        }
+
+BUGS
+       Some  systems (like Solaris) alters the header on outgoing
+       packets.  AFAIK the only field affected in this release is
+       the  IP-ID  field, and you should avoid to set this if you
+       plan to use the daemon (sash(8)) from  a  machine  running
+       Solaris.  If  you  find  other limitations or bugs, please
+       contact the author.
+
+AUTHOR
+       Claes M. Nyberg
+       <cmn@darklab.org> or <md0claes@mdstud.chalmers.se>
+
+SEE ALSO
+       sadoor.conf(5), sadoor(8), mksadb(8), sash(8)
+
+sadoor daemon version 1.0    July 2003                          5
+

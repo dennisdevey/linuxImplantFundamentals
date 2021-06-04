@@ -1,0 +1,348 @@
+.\"
+.\"  File: sadoor.pkts.5
+.\"  Author: Claes M. Nyberg <md0claes@mdstud.chalmers.se>
+.\"  Description: sadoor.pkts manual
+.\"  Version: 1.0
+.\"  Date: Mon Mar 17 20:11:03 CET 2003
+.\"
+.\"  Copyright (c) 2003 Claes M. Nyberg <md0claes@mdstud.chalmers.se>
+.\"  All rights reserved, all wrongs reversed.
+.\"     
+.\"  Redistribution and use in source and binary forms, with or without
+.\"  modification, are permitted provided that the following conditions
+.\"  are met:
+.\"
+.\"  1. Redistributions of source code must retain the above copyright
+.\"     notice, this list of conditions and the following disclaimer.
+.\"  2. Redistributions in binary form must reproduce the above copyright
+.\"     notice, this list of conditions and the following disclaimer in the
+.\"     documentation and/or other materials provided with the distribution.
+.\"  3. The name of author may not be used to endorse or promote products
+.\"     derived from this software without specific prior written permission.
+.\"   
+.\"  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+.\"  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+.\"  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
+.\"  THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+.\"  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+.\"  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+.\"  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+.\"  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+.\"  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+.\"  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+.\"   
+.TH SADOOR.PKTS 5 "July 2003" "sadoor daemon version 1.0" " "
+.SH NAME
+.B sadoor.pkts
+\- sadoor(8) packet configuration file
+.SH DESCRIPTION
+The
+.B sadoor.pkts
+file contains the packets required by the sadoor(8) program
+to run a command or establish a connection to a client.
+Everything after a '#' is interpreted as a comment, and empty lines
+are ignored.
+.PP
+The file is expected to start with a set of key-packets 
+followed by a command-packet. The minimum configuration 
+consists of a single key-packet followed by a command-packet.
+
+.SH SYNTAX
+Key packet syntax:
+.RS 0
+keypkt
+.RI "['('" replicate "')'] '{'" packet "'}' "
+.RE
+.PP
+Command packet syntax:
+.RS 0
+cmdpkt
+.RI "'{'" packet "'}'"
+.RE
+.PP
+Where 
+.I replicate
+is the number of times that the key packet should be replicated.
+This is useful if you plan to set a number of equal packets to appear 
+in sequence, the packet is then expected by sadoor to appear 
+.IR replicate +1
+number of times.
+.PP
+Packet syntax:
+.RS 0
+ip
+.RI "'{'daddr = " ipv4addr ';' 
+.RI [ options ]
+.IR proto '{'[ options ]'}}'
+.RE
+.PP
+As we can see above, a destination address 
+and a protocol (udp, tcp or icmp) is required in all packets. 
+.PP
+The optional settings is set as
+.IR keyword " ="
+.IR value ';'.
+Numeric values can be set using base 2,8,16 or 10
+(0b, 0, 0x respectively as prefix).
+The optional settings with their corresponding 
+keyword and expected value follows.
+.PP
+.SS OPTIONAL IP SETTINGS
+.BR saddr " (dotted decimal)"
+.RS 4
+Source IPv4 address.
+.RE
+.PP
+.BR tos " (unsigned 8 bit)"
+.RS 3 
+ Type of service. Typical values:
+.PP
+ Telnet/Rlogin      0x10
+ FTP control        0x10
+ FTP data           0x08
+ TFTP               0x10
+ SMTP command       0x10
+ SMTP data          0x08
+ DNS UDP query      0x10
+ DNS TCP query      0x00
+ DNS zone transfer  0x08
+ ICMP error/query   0x00
+ IGP                0x04
+ SNMP               0x04
+ BOOTP              0x00
+ NNTP               0x02
+.RE
+.PP
+.BR id " (unsigned 16 bit)"
+.RS 4 
+Identification number
+.RE
+.PP
+.BR ttl " (unsigned 8 bit)"
+.RS 4 
+Time to live.
+If set, it is possible to configure sash(8) to add a value to the
+one required to compensate for reduction in transit.
+.RE
+.PP
+.SS OPTIONAL TCP SETTINGS
+.BR dport " (unsigned 16 bit)"
+.RS 4
+Destination port.
+.RE
+.PP
+.BR sport " (unsigned 16 bit)"
+.RS 4
+Source port.
+.RE
+.PP
+.BR flags " (unsigned 6 bit or symbolic)"
+.RS 4
+TCP control flags (URG ACK PSH RST SYN FIN).
+.RE
+.PP
+.BR seq " (unsigned 32 bit)"
+.RS 4
+Sequence number.
+.RE
+.PP
+.BR ack " (unsigned 32 bit)"
+.RS 4
+Acknowledge number.
+.RE
+.PP
+.BR data " (see"
+.B DATA
+section below)
+.RS 4
+Beginning of payload.
+.RE
+.SS OPTIONAL UDP SETTINGS
+.BR dport " (unsigned 16 bit)"
+.RS 4
+Destination port.
+.RE
+.PP
+.BR sport " (unsigned 16 bit)"
+.RS 4
+Source port.
+.RE
+.PP
+.BR data " (see"
+.B DATA
+section below)
+.RS 4
+Beginning of payload.
+.RE
+.RS 4
+.SS OPTIONAL ICMP SETTINGS
+.BR type " (unsigned 8 bit)"
+.RS 4
+ICMP type, currently only 0 (echo reply) and 8 (echo request)
+is supported.
+.RE
+.PP
+.BR code " (unsigned 8 bit)"
+.RS 4
+ICMP code, must be zero if set since 
+.B type
+is limited.
+.RE
+.PP
+.BR id " (unsigned 16 bit)"
+.RS 4
+Echo identity number.
+.RE
+.PP
+.BR seq " (unsigned 16 bit)"
+.RS 4
+Echo sequence number.
+.RE
+.PP
+.BR data " (see"
+.B DATA
+section below)
+.RS 4
+Beginning of payload.
+.RE
+.PP
+.SS DATA 
+Data represents the beginning of the payload in the
+received packet (with exception for the command packet where
+the defined data also is an offset to the supplied command). 
+.PP
+Syntax:
+.RS 0
+data
+.RI "'{'" data-string "'}'"
+.RE
+.PP
+A
+.I data-string
+can't contain any whitespaces (or some language specific characters
+which will produce an error, eg. write '\\x7d' instead of '}').
+.PP
+The following escape sequences is supported within the 
+.IR data-string :
+.PP
+ \\e - Escape character
+ \\a - Bell character
+ \\b - Backspace character
+ \\f - Form-feed character
+ \\n - New-line character
+ \\r - Carriage return character
+ \\t - Tab character
+ \\v - Vertical tab character
+ \\s - Space character
+ \\\\ - Backslash character
+ \\x - Interpret the next two characters as hex
+.SH EXAMPLES
+
+ # Three echo-request packets from any address
+ # (sash(8) can be configured to randomize or
+ # set a default value for source addresses 
+ # on packets without a required source address).
+ keypkt(2)
+ {
+     ip {
+         daddr = 192.168.1.1;
+         icmp {
+             type = 8;
+             seq = 0;
+         }
+     }
+ }
+.PP
+ # HTTP GET request
+ keypkt {
+     ip {
+         daddr = 192.168.1.1;
+         tcp {
+             dport = 80;
+             flags = PSH ACK;
+             data { GET\\s/index.html\\sHTTP/1.0\\r\\n }
+     }
+ }
+.PP
+ # UDP packet
+ # Here is a TTL value of 255 required, forcing the 
+ # packet to be generated on the same segment as the
+ # machine running sadoor(8).
+ keypkt {
+     ip {
+         daddr = 192.168.1.1;
+         ttl = 255;
+         udp {
+             dport = 2049;
+             sport = 23056;
+             data { \\x01\\x02\\x03\\x04\\x05\\x06 }
+         }
+     }
+ }
+.PP
+ # TCP SYN scan?
+ # Since this packet has a TTL value set, 
+ # the client needs to add it's number of hops
+ # away from the machine running sadoor(8).
+ keypkt {
+     ip {
+          daddr = 192.168.1.1;
+          ttl = 39;          
+          tcp {
+             dport = 80;
+             flags = S;
+         }
+     }
+ }
+.PP
+ # Alot of requirements for this paket
+ keypkt {
+     ip {
+        daddr = 192.168.1.1;
+        saddr = 192.168.1.12;
+        id = 0xabcd;
+        ttl = 255;
+        tos = 0x10;
+        tcp {
+            sport = 22309;
+            dport = 23;
+            flags = SYN ACK;
+            seq = 0xc0ded;
+            ack = 0xaaddccdd;
+            data { thisisthebeginningofthepayload }
+        }
+    }
+ }
+ 
+.PP
+ # The last packet is the command-packet.
+ # Since the beginning of the payload is
+ # set the (encrypted) command is expected right 
+ # after the defined data.
+ cmdpkt
+ {
+     ip {
+         daddr = 192.168.1.1;
+         tcp {
+             sport = 23456;
+             seq = 0xaabbccdd;
+             ack = 0xeeffaabb;
+             data { command\\soffset\\sdata }
+         }
+     }
+ }
+ 
+.SH BUGS
+Some systems (like Solaris) alters the header on outgoing packets.
+AFAIK the only field affected in this release is the IP-ID field, and 
+you should avoid to set this if you plan to use the client (sash(8))
+from a machine running Solaris. If you find other limitations or bugs,
+please contact the author.
+
+.SH AUTHOR
+Claes M. Nyberg
+.RS 0
+.IR <cmn@darklab.org> " or " <md0claes@mdstud.chalmers.se>
+.RE
+.SH SEE ALSO
+sadoor.conf(5), sadoor(8), mksadb(8), sash(8)

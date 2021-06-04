@@ -1,0 +1,109 @@
+SADOOR(8)                                               SADOOR(8)
+
+NAME
+       sadoor - Non listening remote shell and execution server
+
+SYNOPSIS
+       sadoor [-hnv] [-c config_file] [-t timout_seconds]
+
+DESCRIPTION
+       SAdoor (Stealth/Secure/Secret Administration door) listens
+       for a set of predefined packets in order to run a  command
+       or   establish   a   connection  (see  sadoor.pkts(5)  for
+       details).
+
+       All packets except for the last one is called  "key  pack-
+       ets"  and  they are marked off by SAdoor as they arrive in
+       the defined  order.   The  last  packet  is  the  "command
+       packet" and carry the encrypted sadoor-command within it's
+       payload.  The command is symmetriclly encrypted (Blowfish)
+       using the key resisting in sadoor.key(5).
+
+       The sadoor-command is either run, connect or accept.
+
+   Run command
+       The  run  command  simply passes the received string on to
+       system(3), making it possible to run shell-commands  with-
+       out establishing a connection.
+
+   Connect command
+       The  connect command (which is the default command sent by
+       sash(8)) contains the port and IP for  SAdoor  to  connect
+       back to.
+
+   Accept command
+       The  accept command tells SAdoor to start listen on a spe-
+       cific port, but it also contains the IP and source port of
+       the  connecting  daemon  to make sure that the client con-
+       necting is the same as  the  daemon  sending  the  command
+       packet.
+
+   Encrypted connection
+       When  a  connection is established, SAdoor generates a new
+       key to use during the session and allocates  a  PTY  where
+       the   slave   side   runs   the   program   specified   in
+       sadoor.conf(5) or /bin/sh by default.
+
+       The environment variable "SADOOR_CLIENT" is  set  for  the
+       program  run  and  contains  the  daemons IPv4 address and
+       portnumber used for the connection. If resolving of host-
+       names  is not disabled with the -n option, the environment
+       variable "SADOOR_CLIENT_HOSTNAME"  is  set  as  well,  and
+       contains the hostname of the connecting daemon.
+
+   File transfer
+       During a connection it is possible to request a file to be
+       transfered  in  some  direction.  File  transfer  mode  is
+       entered by the presence of an escape sequence in the  data
+       received  from  the  daemon.   The file is then transfered
+       encrypted in the existing connection.  Since the  existing
+       connection  is  used,  the  output  of running commands is
+       delayed until the file is transfered. See sash(8) for fur-
+       ther details.
+
+COMMAND LINE OPTIONS
+       -c config_file
+           The    configuration   file   to   use.   Default   is
+           /etc/sadoor/sadoor.conf
+
+       -h
+           Print short summary of commandline options.
+
+       -n
+           Do not attempt to convert host addresses to names.
+
+       -v
+           Print version and exit.
+
+       -t timeout_seconds
+           Timout in seconds when establishing a connection to  a
+           daemon, default is 30.
+
+CONFIGURATION FILE
+       SAdoor       reads       configuration      data      from
+       /etc/sadoor/sadoor.conf by default (or from the file spec-
+       ified   with   -c   option   on  the  command  line).  See
+       sadoor.conf(5) for details.
+
+DISTRIBUTION
+       The latest release can be obtained from
+       http://cmn.listprojects.darklab.org/
+
+       Sadoor uses libpcap which is copyrighted by Van  Jacobson,
+       Craig Leres and Steven McCanne, all of the Lawrence Berke-
+       ley National Labratory, University of California,   Berke-
+       ley,   CA.   Libpcap  is  available  from  "The   Tcpdump-
+       Group"'s Web site at
+       http://www.tcpdump.org/
+
+AUTHOR
+       Claes M. Nyberg
+       <cmn@darklab.org> or <md0claes@mdstud.chalmers.se>
+
+SEE ALSO
+       sash(1),   system(3),    sadoor.pkts(5),    sadoor.key(5),
+       sadoor.conf(5), mksadb(8)
+
+sadoor daemon version 1.0    July 2003                          2
+
+

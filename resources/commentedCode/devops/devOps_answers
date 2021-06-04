@@ -1,0 +1,16 @@
+# Sniffex to Portknocker
+Using the sniffex.c file, implement a portknocking mechanism that checks for a single
+knock to a pre-defined port and then calls a function which prints BANG.
+
+1. What did you have to do to get that to work?
+- I looked for the function where it converts the pcap to printable, noted how it got the port
+- from there I checked if it was 22 and then called the function.
+	
+2. What do you see? Experiment to see how it works.
+- I see the output of my function.
+
+
+# Debugging
+- I See that using strings and diff shows the hardcoded debugging strings i put in there as expected on the debug run.
+
+

@@ -1,0 +1,75 @@
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+                       SAdoor daemon version 1.0
+
+              By Claes M. Nyberg, <cmn@darklab.org> July 2003
+
+			      http://cmn.listprojects.darklab.org/
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Credits
+-------
+o FX <fx@phenoelit.de>
+    For writing cd00r.c (http://www.phenoelit.de/fr/tools.htm), which gave me
+	the inspiration to write this, and for giving me feedback on this project.
+
+o Zet <zet@darklab.org>
+    For hosting this project at darklab.org.
+
+o Richard W. Stevens
+    Without his books, nothing of this would have been possible R.I.P.
+
+o Bruce Schneier
+    For writing "Applied Cryptography"
+
+o Van Jacobson, Craig  Leres and Steven McCanne, all of the Lawrence
+  Berkeley National Labratory, University of California, Berkeley, CA.
+    For libpcap, which this project uses.
+
+
+What is this
+------------
+SAdoor is a non listening remote shell/execution server.
+The daemon listens for a set of predefined packets in 
+order to establish a connection or run a command. 
+
+There is a client available at http://cmn.listprojects.darklab.org, 
+that makes the sending of the required packets and connection-establishing 
+as transparant as possible.
+
+The client also has alot of other features, like listening/connect mode
+as well as dumping the required payload (append it to an image, and download
+the image to secretly pass the command on to SAdoor) which makes it possible to
+generate the required packets in real connections.
+
+You are advised to read the plain text manuals in the ./doc 
+directory for further explanations about the contents in this package.
+
+Requirements
+------------
+o Libpcap (http://www.tcpdump.org) 
+o Root privileges
+
+
+Installation
+------------
+Edit the Makefile in the daemon directory if you want 
+to change the default root directory for installation (/),
+or if your systype is not supported.
+
+Then do a 'make <systype> && make install'.
+
+
+Portability
+-----------
+This version has successfully been built using gcc(1) 
+and tested on the following platforms:
+
+OpenBSD 3.2, 3.0 (x86)
+FreeBSD 5.0 (x86)
+Linux 2.4.20 (Gentoo 1.4rc2, x86)
+SunOS 5.7, 5.8 (Sparc)
+
+Have fun!
+
+CMN

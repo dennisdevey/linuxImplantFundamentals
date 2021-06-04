@@ -1,0 +1,3 @@
+o Add compression to SADB file (confusion and diffusion)
+o Add option (sash.conf) for resolving random IPv4 addresses
+o Fix the ugly wait (usleep(100)) in sadoor_command()

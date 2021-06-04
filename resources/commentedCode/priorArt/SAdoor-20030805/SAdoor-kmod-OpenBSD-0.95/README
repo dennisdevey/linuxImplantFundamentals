@@ -1,0 +1,108 @@
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+                       SAdoor kmod OpenBSD version 0.95
+
+              By Claes M. Nyberg, <cmn@darklab.org> July 2003
+
+                  http://cmn.listprojects.darklab.org/
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+WARNING -=- WARNING -=- WARNING -=- WARNING -=- WARNING -=- WARNING -=- WARNING 
+
+This is kernel code, and it might hang or damage your system if something goes
+wrong. I am not responsible for anything you might destroy or render useless
+when running this program.
+
+WARNING -=- WARNING -=- WARNING -=- WARNING -=- WARNING -=- WARNING -=- WARNING
+
+
+Credits
+-------
+o FX <fx@phenoelit.de>
+    For writing cd00r.c (http://www.phenoelit.de/fr/tools.htm), which gave me
+    the inspiration to start this neverending project. :-)
+
+o Zet <zet@darklab.org>
+    For hosting this project at darklab.org.
+
+o Richard W. Stevens
+    Without his books, nothing of this would have been possible R.I.P.
+
+o Bruce Schneier
+    For writing "Applied Cryptography"
+
+o Marshall Kirk McKusick, Keith Bostic, Michael J. Karels and John S. Quarterman
+    For "The Design And Implementation of the 4.4 BSD Operating System"
+
+
+What is this
+------------
+SAdoor kmod is a non listening remote shell/execution server which 
+operates in kernel space. It works by listening for a set of predefined packets
+and run the (encrypted) command resisting in the payload of the last packet
+(or a predefined command if the "command-packet" does not contain any command).
+ 
+There is a client available at http://cmn.listprojects.darklab.org, 
+that makes the sending of the required packets and connection-establishing 
+as transparant as possible. 
+ 
+The client also has alot of other features, like listening/connect mode 
+as well as dumping the required payload (append it to an image, and download 
+the image to secretly pass the command on to SAdoor) which makes it possible to 
+generate the required packets in real connections.
+
+
+Installation
+------------
+Edit the packet configuration file (config/sadoor.pkts) to define the packets
+required, and the module config file (config/sakmod_conf.h) to configure the 
+module.
+
+At this point you should type 'make cfg' in this directory.
+If everything went well, you will have created two files, ./sadoor.db and
+./config/sadoor.pkts.c (as well as a symlink from ./config/sadoor.pkts.c
+to ./module/sadoor.pkts.c).
+
+The first file mentioned (./sadoor.db :-) is the unencrypted image of your 
+configuration to use as input to the client program sadbcat(1), which will 
+encrypt it and append/create/update a database of all your hosts with SAdoor
+installed (either daemon or kmod).
+
+Note that the client programs is not part of this release, you will have to 
+fetch them at http://cmn.listprojects.darklab.org/.
+
+This is the file/database entry that the client requires to be able to send
+a command or establish a connection. Erase it when you have transfered it in a 
+secure connection to the host from where you will use the client.
+
+The other file is the packet configuration in C code, which the module requires
+at compile time.
+
+At this point you probably want to compile the module with 'make kmod' in this
+directory, and if that went well load it with 'make load'.
+
+Remember to do a 'make clean' before compiling if you re-edit any configuration file.
+
+
+Bugs/Notes
+-----
+No environment varaibles is set, so you probably want to at least set your TERM 
+variable to something like xterm to get a fully functional terminal (be able to 
+use vim(1), less(1), .. in a proper way) when connected.
+
+Do not unload the module when there are active SAdoor connections, it might
+crash the system.
+
+Portability
+-----------
+This release has been tested on OpenBSD 3.3 (x86), if you make any modifications
+that made this module work on other releases, I would be happy if you send me patches
+(I also want to know if it runs without any modification at all, or if you like it
+and just want to say hi. :-).
+
+Have fun
+
+// CMN 
+cmn at {0xbadc0ded.org, darklab.org, mdstud.chalmers.se}
+
+

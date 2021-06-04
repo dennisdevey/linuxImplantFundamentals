@@ -1,0 +1,284 @@
+.\"
+.\"  File: sash.1
+.\"  Author: Claes M. Nyberg <md0claes@mdstud.chalmers.se>
+.\"  Description: sash manual
+.\"  Version: 1.0
+.\"  Date: Mon Mar 17 20:11:03 CET 2003
+.\"  
+.\"  Copyright (c) 2003 Claes M. Nyberg <md0claes@mdstud.chalmers.se>
+.\"  All rights reserved, all wrongs reversed.
+.\"      
+.\"  Redistribution and use in source and binary forms, with or without
+.\"  modification, are permitted provided that the following conditions
+.\"  are met:
+.\"
+.\"  1. Redistributions of source code must retain the above copyright
+.\"     notice, this list of conditions and the following disclaimer.
+.\"  2. Redistributions in binary form must reproduce the above copyright
+.\"     notice, this list of conditions and the following disclaimer in the
+.\"     documentation and/or other materials provided with the distribution.
+.\"  3. The name of author may not be used to endorse or promote products
+.\"     derived from this software without specific prior written permission.
+.\"      
+.\"  THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+.\"  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+.\"  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
+.\"  THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+.\"  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+.\"  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+.\"  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+.\"  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+.\"  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+.\"  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+.\"     
+
+.TH SASH 1 "July 2003" "sadoor client version 1.0" " "
+.SH NAME
+.B sash
+\- sadoor(8) client
+
+.SH SYNOPSIS
+.B sash
+.I host
+.RB [ -Fnv ]
+.RB [ -A
+.IR accept_port : client_ip : client_port ]
+.RB [ -b
+.IR base_address ]
+.RB [ -C
+.IR client_ip : client_port ]
+.RB [ -c
+.IR sadoor_port : local_port ]
+.RB [ -d
+.IR delay_milli_seconds ]
+.RB [ -D
+.BR hex | raw ]
+.RB [ -e
+.IR escape_character ]
+.RB [ -f
+.IR sadb_file ]
+.RB [ -l
+.IR local_port ]
+.RB [ -p
+.IR target_port ]
+.RB [ -r
+.IR command ]
+.RB [ -s
+.IR config_file ]
+.RB [ -t
+.IR timeout_seconds ]
+
+
+.SH DESCRIPTION
+.B sash
+is the client to use for communication with the sadoor(8) program.
+It reads the target specific data such as required packets and encryption key
+from a local database (~/.sash/sash.db by default, but the location can be changed
+in sash.conf(5)) created with sadbcat(1).
+.PP
+By default, a connect command is sent within the payload of the command packet,
+and sadoor(8) is expected to connect back to a local port. 
+.SS Escape shell
+When a connection is established it is possible to escape to the sash prompt
+by entering the escape character (default is ^]). The following commands
+then becomes available:
+.PP
+.BI ! " command"
+.RS 4
+Run command on the machine that sash were started from.
+.RE
+.PP
+.B get
+.I remote_file local_file
+.RS 4
+Get the remote file
+.I remote_file
+from server and store it at the location given by
+.IR local_file .
+File locations must be absolute.
+.RE
+.PP
+.B put
+.I local_file remote_file
+.RS 4
+Store the local file
+.I local_file
+at the server on the location given by
+.IR local_file .
+File locations must be absolute.
+.RE
+.PP
+.B quit
+.RS 4
+Exit sash.
+.RE
+
+.SH COMMAND LINE OPTIONS
+.B -A
+.IR accept_port : client_ip : client_port
+.RS 4
+Tell target sadoor(8) to listen on local port
+.I accept_port
+for a connection from 
+.IR client_ip : client_port .
+.PP
+No connection attempt is performed, but only the
+command itself is sent. So this is only useful if you 
+have another client ready to run with 
+.BR -c " option."
+.RE
+.PP
+
+.BI -b " base_address"
+.RS 4
+Local IPv4 address to use.
+.RE
+.PP
+
+.B -c
+.IR remote_port : local_port
+.RS 4
+Connect to target SAdoor on port
+.IR remote_port " from "
+local port 
+.IR local_port .
+.PP
+No sadoor-packets are sent so this command is only useful
+if packets is generated elsewhere 
+.RB ( -A " option)."
+.RE
+.PP
+
+.B -C
+.IR client_ip : client_port
+.RS 4
+Tell target sadoor(8) to connect back to 
+.IR client_port " on " client_ip .
+.PP
+This is useful if you have another client 
+already listening 
+.RB ( -l " option)"
+for a connetion since only
+the command is sent.
+.RE
+.PP
+
+.BI -d " delay_milli_seconds"
+.RS 4
+Delay between packets in milli seconds.
+.RE
+.PP
+
+.BR "-D raw" | hex
+.RS 4
+Do not do anything at all, just dump the payload of the 
+command packet (i.e any required data and the encrypted 
+sadoor-command) as a hex-string or raw 
+data to stdout and quit.
+.PP
+This is useful if the command-packet should be part of a 
+"real" connection. Keep in mind that the dumped data has
+to be the beginning of the payload, and that if replay protections
+is in use on target SAdoor the command might be recognized as a 
+command with an "old" timestamp and theirfore rejected if another 
+command is sent after this has been generated.
+.RE
+.PP
+
+.BI -e " escape_character"
+.RS 4
+Character to use together with control-key for escaping.
+.RE
+.PP
+
+.BI -f " sadb_file"
+.RS 4
+SAdoor databse file to use that contains information 
+about target host.
+.RE
+.PP
+
+.B -F 
+.RS 4
+Force action even if sadoor(8) is expected to packet timeout
+or the action itself is disabled. 
+.PP
+Sash will refuse to run if the command is disabled on target 
+sadoor(8) or if the delay between all packets is greater than 
+the timeout value set. Debug option.
+.RE
+.PP
+
+.BI -l " local_port"
+.RS 4
+Listen on local port for a connection from sadoor(8).
+This option does not send any packets, so it will only
+be useful if the packets is generated elsewhere, such as
+with the 
+.B -A
+option.
+.RE
+.PP
+
+.BI -p " target_port"
+.RS 4
+Passive mode, tell sadoor to listen for connections on
+.I target_port
+and attempt to connect after the required packets have been sent.
+.RE
+.PP
+
+.BI -r " command"
+.RS 4
+Run command on target host without connecting.
+.RE
+.PP
+
+.BI -s " config_file"
+.RS 4
+Use configuration file
+.I config_file
+instead of the default ~/.sash/sash.config.
+.RE
+.PP
+
+.BI -t " timeout_seconds"
+.RS 4
+Timeout in seconds when connecting or waiting for connection.
+.RE
+.PP
+
+.B -v
+.RS 4
+Verbose level, repeat to be more verbose.
+.RE
+.PP
+
+.SH EXAMPLES
+Send the packets required for target host tomat.smaskens.com to connect back
+to a local random port:
+.PP
+.RS 0
+root@gurka# sash tomat.smaskens.com
+.RE
+.PP
+Send the packets required for target host tomat.smaskens.com to listen
+on it's local port 31337, and try to connect to it:
+.PP
+.RS 0
+root@gurka# sash tomat.smaskens.com -p 31337
+.RE
+.PP
+
+.SH BUGS
+Only one file transfer at the time is allowed,
+and it is not possible to abort a started transfer without
+killing the sash process.
+
+.SH AUTHOR
+Claes M. Nyberg
+.RS 0
+.IR <cmn@darklab.org> " or " <md0claes@mdstud.chalmers.se>
+.RE
+.SH SEE ALSO
+sadbcat(1), sadump(1), sash.conf(5), sadoor(8)

@@ -1,0 +1,49 @@
+ASH(1)                                                   SASH(1)
+
+NAME
+       sadump - Dump entry from sadoor(8) database file.
+
+SYNOPSIS
+       sadump [host] [-dhknpr] [-f sadb_file]
+
+DESCRIPTION
+       sadump dumps information for host (or all machines in file
+       if left out) in raw or human  readable  format  from  file
+       generated  with  mksadb(8) or sadbcat(1). The default file
+       to dump is ~/.sash/sash.db.
+
+COMMAND LINE OPTIONS
+       -d
+           Target file is not encrypted. Useful for investigating
+           files generated with mksadb(8).
+
+       -f sadb_file
+           Use  target  sadoor database file sadb_file instead of
+           the default.
+
+       -h
+           Print short summary of commandline options.
+
+       -k
+           Print private host key in hex. The key is not  printed
+           at all by default.
+
+       -n
+           Do not attempt to convert addresses to names.
+
+       -p
+           Supress printing of packets.
+
+       -r
+           Print entry in raw. All information is printed to std-
+           out. Useful if you want to split up a database file.
+
+AUTHOR
+       Claes M. Nyberg
+       <cmn@darklab.org> or <md0claes@mdstud.chalmers.se>
+
+SEE ALSO
+       sadbcat(1), sash.conf(5), sadoor(8), mksadb(8)
+
+sadoor client version 1.0    July 2003                          1
+
