@@ -11,7 +11,7 @@
 ## Week 2:
 
 * Day 1: More 'Backdoor Basics'
-* Day 2: REFACTOR! https://cwe-pte.slack.com/archives/C0248P2N5EW/p1623089821003400
+* Day 2: REFACTOR! <https://cwe-pte.slack.com/archives/C0248P2N5EW/p1623089821003400>
    * We are going to build our implant in a modular and sustainable way. Going forward, instead of building from sniffex, we are going to use sniffex as a library to call functions from. This means we are going to start using multiple .h and .c files for each compilation. While this will complicate our build scripts, it will make future development a lot easier. I will bring a library of sniffex calls for you to class tomorrow, for now, refactor your validation code to be a function called from a new main.
    * By the end of the refactor you will have: 
       * main.c, functionality.h, sniffex.c, helper.h and anything else you want
@@ -33,7 +33,7 @@
   * First stage downloads and executes second stage implant which begins checking in via C2
 * Day 4: Privesc and Persistence Day
 * Day 5: Second RE Day & Anti-Forensics / Competition Day
-  * (Make a copy of the scorecard)[https://docs.google.com/spreadsheets/d/1397x1XDjxkmSxBJaJ--S01PcngUwWwze_1ipeCBU3wY/edit#gid=0]
+  * [Make a copy of the scorecard](https://docs.google.com/spreadsheets/d/1397x1XDjxkmSxBJaJ--S01PcngUwWwze_1ipeCBU3wY/edit#gid=0)
 
 ## Week 4: 
 
@@ -44,7 +44,7 @@
 * Day 2: LD-Preload Rootkit Part 1.
 * Day 3: LD-Preload Rootkit Part 2.
 * Day 4: Competition Day 1 
-  * (Make a copy of the scorecard)[https://docs.google.com/spreadsheets/d/1397x1XDjxkmSxBJaJ--S01PcngUwWwze_1ipeCBU3wY/edit#gid=0]
+  * [Make a copy of the scorecard](https://docs.google.com/spreadsheets/d/1397x1XDjxkmSxBJaJ--S01PcngUwWwze_1ipeCBU3wY/edit#gid=0)
 * Day 5: Competition Day 2
 
 Things I'd Really Like to Get Done:
