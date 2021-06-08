@@ -15,7 +15,7 @@
    * We are going to build our implant in a modular and sustainable way. Going forward, instead of building from sniffex, we are going to use sniffex as a library to call functions from. This means we are going to start using multiple .h and .c files for each compilation. While this will complicate our build scripts, it will make future development a lot easier. I will bring a library of sniffex calls for you to class tomorrow, for now, refactor your validation code to be a function called from a new main.
    * By the end of the refactor you will have: 
       * main.c, functionality.h, sniffex.c, helper.h and anything else you want
-      * Don't forget the goto's! 
+      * Call a function in your helper.c file when activation occurs.
  * Day 3: Finish 'Backdoor Basics'
  * Day 4: Finish 'Download and Execute'. Get a chain working where a first stage implant validates with the profiler, then downloads and execs a second stage.
   * Also get the binary to compile and run for 32bit Linux
