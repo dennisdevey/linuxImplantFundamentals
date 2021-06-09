@@ -5,18 +5,18 @@
 * Day 3: Finish DevOps and do "Linux Development" and "Compilers" from the 'Development and Portability' section. 
    * I don't want you to do 'Development and Portability' all in a row, it is a bit brutal and technically dense. 
    * Once you have finished "Compilers", move on to the 'Backdoor Basics' section
- * Day 4: Complete as much of 'Backdoor Basics' as you can
+ * Day 4: Complete as much of 'Backdoor Basics' as you can. Note the items we will not be doing. 
  
 
 ## Week 2:
 
-* Day 1: More 'Backdoor Basics'
+* Day 1: More 'Backdoor Basics'. 
 * Day 2: REFACTOR! <https://cwe-pte.slack.com/archives/C0248P2N5EW/p1623089821003400>
    * We are going to build our implant in a modular and sustainable way. Going forward, instead of building from sniffex, we are going to use sniffex as a library to call functions from. This means we are going to start using multiple .h and .c files for each compilation. While this will complicate our build scripts, it will make future development a lot easier. I will bring a library of sniffex calls for you to class tomorrow, for now, refactor your validation code to be a function called from a new main.
    * By the end of the refactor you will have: 
       * main.c, functionality.h, sniffex.c, helper.h and anything else you want
       * Call a function in your helper.c file when activation occurs.
- * Day 3: Finish 'Backdoor Basics'
+ * Day 3: Finish 'Backdoor Basics' and move on to 'Download and Execute'.
  * Day 4: Finish 'Download and Execute'. Get a chain working where a first stage implant validates with the profiler, then downloads and execs a second stage.
   * Also get the binary to compile and run for 32bit Linux
  * Day 5: First RE Day & Antivirus Theory
