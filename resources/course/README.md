@@ -62,14 +62,14 @@
 
 ### Backdoor Basics
 
-* [Execution Guardrails and Validators](Backdoor_Basics/0-ExecutionGuardrailsandValidators.md)
+* [Execution Guardrails and Validators](Backdoor_Basics/0-ExecutionGuardrailsandValidators.md): [Demo Code Available Here](https://github.com/dennisdevey/linuxImplantFundamentals/blob/main/resources/misc/ifaddrsDemo.c)
 * [Dummy Payload](Backdoor_Basics/1-DummyPayload.md)
 * [Add State](Backdoor_Basics/2-AddState.md)
-* [Magic Knocks](Backdoor_Basics/3-MagicKnocks.md)
-* [Send Commands](Backdoor_Basics/4-SendCommands.md)
-* [Knock Handler](Backdoor_Basics/5-KnockHandler.md)
+* [Magic Knocks](Backdoor_Basics/3-MagicKnocks.md): We are not doing this in this course
+* [Send Commands](Backdoor_Basics/4-SendCommands.md): We are not doing this in this course
+* [Knock Handler](Backdoor_Basics/5-KnockHandler.md): Use [this code](https://github.com/nathunandwani/port-knocker/blob/master/knock.py) as a base for a python script that can activate your implant. 
 * [Uninstall](Backdoor_Basics/6-Uninstall.md)
-* [Profiler](Backdoor_Basics/7-Profiler.md)
+* [Profiler](Backdoor_Basics/7-Profiler.md): We are not doing this in this course. I will write demo code.
 * [Update Your Tests](Backdoor_Basics/8-UpdateTests.md)
 
 
