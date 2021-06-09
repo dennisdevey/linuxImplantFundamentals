@@ -69,7 +69,7 @@
 * [Send Commands](Backdoor_Basics/4-SendCommands.md): We are not doing this in this course
 * [Knock Handler](Backdoor_Basics/5-KnockHandler.md): Use [this code](https://github.com/nathunandwani/port-knocker/blob/master/knock.py) as a base for a python script that can activate your implant. 
 * [Uninstall](Backdoor_Basics/6-Uninstall.md)
-* [Profiler](Backdoor_Basics/7-Profiler.md): We are not doing this in this course. I will write demo code.
+* [Profiler](Backdoor_Basics/7-Profiler.md): [Demo Code Available Here](https://github.com/dennisdevey/linuxImplantFundamentals/blob/main/resources/misc/profilerDemo.c).
 * [Update Your Tests](Backdoor_Basics/8-UpdateTests.md)
 
 
