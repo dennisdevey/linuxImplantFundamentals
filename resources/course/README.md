@@ -7,7 +7,7 @@ Course materials used will be DevOps, Implant Basics, Advanced Payloads, Actions
 
 ### Assignment Two: Port Knock Backdoor
 
-Using existing code, implement port-knocking backdoor functionality for your framework. 
+Using existing code, implement port-knocking backdoor functionality for your framework IAW this document: [Backdoor Requirements Document](https://docs.google.com/document/d/1AjoL963MExGtQXWwF-EPPzVSQryAm5uQmJYnFtqcvLU/edit?usp=sharing)
 
 Course materials used will be from Port Knock Backdoor, culminating with [Profiler Builder](Execution/5-ProfilerBuild.md)
 
