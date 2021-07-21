@@ -87,8 +87,9 @@ Course materials used will be from [Classic ELF Infector](Execution/4-ClassicELF
 ### Advanced Payloads
 
 * [Bind Shell](Advanced_Payloads/0-BindShell.md)
-* [Activation and Connecting to Shells](Advanced_Payloads/1-ActivationandConnectingtoShells.md)
 * [Reverse Shell](Advanced_Payloads/2-ReverseShell.md)
+* [Activation and Connecting to Shells](Advanced_Payloads/1-ActivationandConnectingtoShells.md)
+* [Commands via Connect]((Advanced_Payloads/7-ConnectCommands.md)
 * [Mutex](Customization/4-Mutex.md)
 * [EncodingEncryption](Customization/5-EncodingEncryption.md)
 * [Update Your Tests](Customization/6-UpdateTests.md)
