@@ -1,12 +1,22 @@
 # Activation and Connecting to Shells
+
+## Bind Shells
+
 You manually activated the implant and connected to that bind shell with netcat, but we need to do things automatically, and at scale. 
 
-Using the Python script that generates payloads you wrote earlier: 
+You can write your own shell multihandler, or you can use the existing Meterpreter shell handler. I highly recommend doing that. 
 
-1. Modify it to take in the IP address and the knock codes required to activate the implant. 
-2. Take the logs that are outputted by the first script and parse them with a second script that identifies existing payloads and conducts the portknock to activate them. 
-3. Once you have that working, add some code to your activation script that will connect automatically and hand you the shell.
+Write documentation for the operators on how to install and setup the Meterpreter multi/handler, and how to configure RHOST and LPORT based on the build logs to connect to bind shells. 
+
+Hints: [1](https://www.whitelist1.com/2016/06/metasploit-windows-7-bind-tcp-shell.html), [2](https://www.puckiestyle.nl/msfvenom/)
+
+## Reverse Shells
+
+Similar to bind shells, those reverse shells are going to be calling back to you on execution! 
+
+Write documentation for the operators on how to install and setup the Meterpreter multi/handler, and how to configure LHOST and LPORT based on the build logs to catch reverse shells. 
+
+Hint: [1](https://www.offensive-security.com/metasploit-unleashed/binary-payloads/)
 
 
-Submit your commit, ensure that you have moved your handler into the reverseShellHandler
-directory.
+In a more perfect world we could use the Metasploit RPC library to do this, but we aren't going to make it that easy for the operators. I did it and it was a bit of work.
