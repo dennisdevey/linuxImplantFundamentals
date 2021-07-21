@@ -1,45 +1,45 @@
 # Summary
 
-### Assignment One: Basic Implant
+### Task One: Basic Implant
 Implement a basic implant IAW this document: [Basic Implant Requirements Document](https://docs.google.com/document/d/1sz4q58ZREpOWbGz0CFwvmExPDGK9-ny9mUh5_7pGpUo/edit?usp=sharing)
 
-Course materials used will be DevOps, Implant Basics, Advanced Payloads, Actions on Objective, and the first three items in Execution.
+Course materials used will be DevOps, Implant Basics, Advanced Payloads, Actions on Objective, and the first three items in Execution. 
 
-### Assignment Two: Port Knock Backdoor
+### Task Two: Port Knock Backdoor
 
 Using existing code, implement port-knocking backdoor functionality for your framework IAW this document: [Backdoor Requirements Document](https://docs.google.com/document/d/1AjoL963MExGtQXWwF-EPPzVSQryAm5uQmJYnFtqcvLU/edit?usp=sharing)
 
 Course materials used will be from Port Knock Backdoor, culminating with [Profiler Builder](Execution/5-ProfilerBuild.md)
 
-### Assignment Three: HTTP Command and Control
+### Task Three: HTTP Command and Control
 
-Implement C2 via HTTP for your framework, writing the C to do so and modifying the Python-based listening post.
+Implement C2 via HTTP for your framework and modifying the Python-based listening post.
 
 Course materials used will be from Command and Control.
 
-### Assignment Four: Injection and In-Memory Execution
+### Task Four: Injection and In-Memory Execution
 
-Implement multiple forms of process injection and the ability to download and execute files in memory only.
+Implement process injection and the ability to download and execute files in memory only.
 
 Course materials used will be from Injection and In-Memory.
 
-### Assignment Five: Linux Environmental-Keyed Dropper
+### Task Five: Linux Environmental-Keyed Dropper
 
 Implement the ability to unpack, decrypt, and execute a payload based on an environmental key.
 
 Course materials used will be from [Dropper](Execution/3-Dropper.md)
 
-### Assignment Six: ELF Infector
+### Task Six: ELF Infector
 
-Backdoor an arbitrary ELF binary using classic methods.
+Backdoor an arbitrary ELF binary using classic methods. Modify your implant generator to allow the addition of an arbitrary pre-compiled executable.
 
 Course materials used will be from [Classic ELF Infector](Execution/4-ClassicELFInfector.md)
 
-### Assignment Seven: LD-Preload Rootkit
+### Task Seven: LD-Preload Rootkit
 
-### Assignment Eight: LKM Rootkit
+### Task Eight: LKM Rootkit
 
-### Assignment Nine: Virtual File System
+### Task Nine: Virtual File System
 
 
 
@@ -64,7 +64,7 @@ Course materials used will be from [Classic ELF Infector](Execution/4-ClassicELF
 ### DevOps
 
 * [Better Practices](DevOps/0-BetterPractices.md)
-* [Intro to sniffex](DevOps/1-Introtosniffex.md)
+* [Starter Code](DevOps/11-Starter.md)
 * [Git](DevOps/3-Git.md)
 * [Error Handling](DevOps/4-ErrorHandling.md)
 * [Makefile Build](DevOps/5-MakefileBuild.md)
@@ -84,7 +84,7 @@ Course materials used will be from [Classic ELF Infector](Execution/4-ClassicELF
 * [Update Your Tests](Backdoor_Basics/8-UpdateTests.md)
 
 
-### Advanced Features
+### Advanced Payloads
 
 * [Bind Shell](Advanced_Payloads/0-BindShell.md)
 * [Activation and Connecting to Shells](Advanced_Payloads/1-ActivationandConnectingtoShells.md)
