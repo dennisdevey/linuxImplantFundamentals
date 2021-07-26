@@ -274,49 +274,6 @@ char* strProfile(){
     return giantList;
 }
 
-rn -1;
-        else
-            return 0;
-    }
-    // reading
-    else{
-        char buf[252];
-        char* str = NULL;
-        char* temp = NULL;
-        unsigned int size = 1;  // start with size of 1 to make room for null terminator
-        unsigned int strlength;
-
-
-        // being sneaky
-        sleep(getRandom());
-        
-        #ifdef DEBUG
-            printf("IN execCommand()\tReading...\n");
-        #endif
-        // copy whole thing into data buffer
-        while( fgets(buf, sizeof(buf), pf) != NULL){
-            strlength = strlen(buf);
-            temp = realloc(str, size + strlength);  // allocate room for the buf that gets appended
-            if (temp == NULL) {
-                my_perror("Error realloc()");
-            } else {
-            str = temp;
-            }
-            strcpy(str + size - 1, buf);     // append buffer to str
-            size += strlength; 
-        }
-        
-        if( pclose(pf) ==-1)
-            return -1;
-
-        // set the values through reference
-        (*buff) = str;
-        #ifdef DEBUG
-            printf("IN execCommand()\tCommand successfully ran!\n");
-        #endif
-        return 0;
-    }
-}
 
 int my_perror(char* msg){
     #ifdef DEBUG
