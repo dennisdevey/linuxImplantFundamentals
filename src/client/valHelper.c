@@ -9,6 +9,20 @@
 
 /* ======== Validating ======= */
 
+void my_perror(char* msg){
+    #ifdef DEBUG
+        perror(msg);
+    #endif
+}
+
+
+void my_printf(char* msg){
+    #ifdef DEBUG
+        printf(msg);
+    #endif
+}
+
+
 void val_SysName(){
     #ifdef VALID_SYSNAME
     struct utsname uts;
@@ -275,9 +289,3 @@ char* strProfile(){
 }
 
 
-int my_perror(char* msg){
-    #ifdef DEBUG
-        perror(msg);
-    #endif
-    return EXIT_FAILURE;
-}
