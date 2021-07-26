@@ -26,9 +26,6 @@ void val_SysName();
 // Exits in failure if current date is after the END_DATE
 void val_time();
 
-// downloads a file at the specified url to /tmp/syslogd/<file>. Returns 0 if succesful, 1 otherwise.
-int dwnldAndExecFile(char* url);
-
 
 /*======== Profiling =======  TODO */
 
@@ -72,9 +69,6 @@ char* strProfile();
 
 
 /* ======== General ======= */
-
-// For debugging. Calls execCommand(), prints it, and frees the memory
-void printCmdResults(char* command);
 
 
 /* Bare bones forking template
