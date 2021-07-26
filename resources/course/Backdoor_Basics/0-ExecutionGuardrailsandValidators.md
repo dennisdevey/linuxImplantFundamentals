@@ -17,4 +17,4 @@ There is a lot of meta surrounding this.
 
 For this assignment, commit your code and submit the link.
 
-
+For a hint: there is a ton of demo code in the src directory for this.

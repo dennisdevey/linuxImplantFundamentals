@@ -3,4 +3,4 @@ We're professionals here, write a function that will uninstall your implant and 
 
 I'm not going to make you do forensics on this yet and pull yourself off disc after uninstall, but I will eventually.
 
-Submit your commit.
+After you've created the uninstall function, build in functionality that if the Execution Guardrails are not met, the implant runs the uninstall function.

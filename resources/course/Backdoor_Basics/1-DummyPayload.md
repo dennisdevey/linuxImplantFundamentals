@@ -1,13 +1,6 @@
 # Dummy Payload
-Using the sniffex.c program you've been playing with, modify it to create a dummy attack payload that gets called when a specific portknock is received by the sniffer. 
+Let's just steal the hardwork of the cd00r team and use their code as a base library for our future shenanigans.
 
-I recommend printing BANG to the screen whenever port 1337 receives traffic.
+Take their main function and convert it into a function that your implant can nicely call whenever it needs to set up a backdoor. Ensure all the dynamic compilation options work. Create a new file for your sniffer library to keep your codebase organized.
 
-Test it using netcat and make sure it works nicely. 
-
-Also, you've made enough changes to the source code now to name it something cool. This is important for branding. 
-
-As always, make sure that this information is being logged so that you are able to search for this implant's configuration and activation method in the future whenever you need to activate it.
-
-1. What did you do to make that work? 
-2. Submit the link to your git commit.
+Once you have this working, submit your commit. 
