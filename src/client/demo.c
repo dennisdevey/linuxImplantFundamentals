@@ -7,12 +7,12 @@ extern int errno;
 
 int main ()
 {
-  #ifdef openFile
+  #ifdef OPENFile
   FILE * pFile;
-  pFile = fopen ("unexist.ent","rb");
+  pFile = fopen ("OPENFILE,"rb");
   if (pFile == NULL)
   {
-    my_perror ("The following error occurred");
+    my_perror("The following error occurred");
     my_printf( "Value of errno: %d\n", errno );
   }
   else {
