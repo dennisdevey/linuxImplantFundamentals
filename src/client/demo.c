@@ -1,7 +1,10 @@
+
 #include <stdio.h>
+#include <string.h>
 #include <errno.h>
 #include "functionality.h"
 #include "helper.h"
+
 
 extern int errno;
 
@@ -9,7 +12,7 @@ int main ()
 {
   #ifdef OPENFile
   FILE * pFile;
-  pFile = fopen ("OPENFILE,"rb");
+  pFile = fopen ("OPENFILE","rb");
   if (pFile == NULL)
   {
     my_perror("The following error occurred");
