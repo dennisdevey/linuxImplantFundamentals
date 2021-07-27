@@ -1,8 +1,10 @@
+#pragma once
+
 #include "helper.h"
 
 void my_printf(char* msg){
     #ifdef DEBUG
-        printf(msg);
+        printf("%s", msg);
     #endif
 }
 
