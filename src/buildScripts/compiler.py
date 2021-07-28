@@ -15,6 +15,7 @@ import os.path as filesys
 # Execution Guardrails (if Required)
 # Persistence Mechanism (if Required)
 
+implant_c_path = "test.c"
 
 parser = argparse.ArgumentParser("python compiler.py", usage='%(prog)s [-o fileName] [-p listener] [-intfc eth0] [-act SECRET_PORTS] [-key 200,300,400] [-atkSc] [-a x64] [-p linux] [-ip 192.160.1.100] [-revip 192.168.2.132] [-revport 1337] [-strip]')
 
@@ -101,7 +102,7 @@ with open('log.csv', mode='a+') as log_file:
     log_writer.writerow([str(datetime.datetime.now()), str(args.ipAddress), str(args.architecture), str(args.os), str(args.outputName)])
 
 
-cmdString = ["gcc", "test.c", "-o", args.outputName]
+cmdString = ["gcc", implant_c_path, "-o", args.outputName]
 
 if args.debug:
     cmdString.insert(1, "-D DEBUG")
