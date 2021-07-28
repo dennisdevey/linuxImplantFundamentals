@@ -95,11 +95,11 @@ with open('log.csv', mode='a+') as log_file:
     
     log_writer = csv.writer(log_file, delimiter='\t', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     if (log_exists != 1):
-        fieldnamesList = ["datetime", "ipAddress", "outputName"]
+        fieldnamesList = ["datetime", "ipAddress", "tgtArch", "tgtOS", "outputName"]
         log_writer.writerow(fieldnamesList)
 
-    log_writer.writerow([str(datetime.datetime.now()), str(args.ipAddress), str(args.outputName)])
-    
+    log_writer.writerow([str(datetime.datetime.now()), str(args.ipAddress), str(args.architecture), str(args.os), str(args.outputName)])
+
 
 cmdString = ["gcc", "test.c", "-o", args.outputName]
 
