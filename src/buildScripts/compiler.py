@@ -2,8 +2,19 @@ import datetime
 import argparse
 import binascii
 import os
-
 import subprocess
+import csv
+import os.path as filesys
+
+##### Desired parameters
+# Architecture
+# OS
+# Libc Version (if Available)
+# Kernel Version (if Available)
+# Functionality
+# Execution Guardrails (if Required)
+# Persistence Mechanism (if Required)
+
 
 parser = argparse.ArgumentParser("python compiler.py", usage='%(prog)s [-o fileName] [-p listener] [-intfc eth0] [-act SECRET_PORTS] [-key 200,300,400] [-atkSc] [-a x64] [-p linux] [-ip 192.160.1.100] [-revip 192.168.2.132] [-revport 1337] [-strip]')
 
@@ -16,29 +27,32 @@ parser.add_argument("-o", "--outputName",type=str, metavar='',
 
 args = parser.parse_args()
 
-# with open('log.csv', mode='a+') as log_file:
+log_exists = filesys.isfile('log.csv')
+
+with open('log.csv', mode='a+') as log_file:
     
-#     log_writer = csv.writer(log_file, delimiter='\t', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-#     if (file_exists != 1):
-#         fieldnamesList = ["datetime", "ipAddress", "domain", "architecture", "platform", "os", "versionNumber", "payload", "activate", "interface", "key", "size", "dateDelay", "timeDelay", "trigger", "persistence", "bang", "downloadURL", "loadShellcode", "reverseShell", "reverseIP", "reversePort", "Notes", "debug", "outputName", "strip", "static"]
-#         log_writer.writerow(fieldnamesList)
+    log_writer = csv.writer(log_file, delimiter='\t', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    if (log_exists != 1):
+        fieldnamesList = ["datetime", "ipAddress", "outputName"]
+        log_writer.writerow(fieldnamesList)
 
-#     log_writer.writerow([str(datetime.datetime.now()), str(args.ipAddress), str(args.domain), str(args.architecture), str(args.platform), str(args.os), str(args.versionNumber), str(args.payload), str(args.activate), str(args.interface), str(args.key), str(args.size), str(args.dateDelay), str(args.timeDelay), str(args.trigger), str(args.persistence), str(args.bang), str(args.downloadURL), str(args.loadShellcode), str(args.reverseShell), str(args.reverseIP), str(args.reversePort), str(args.notes), str(args.debug), str(args.outputName), str(args.strip), str(args.static)])
+    log_writer.writerow([str(datetime.datetime.now()), str(args.ipAddress), str(args.outputName)])
 
-# print(str(args.ipAddress))
-
-cmdString = ["gcc", "testing.c", "-o", args.outputName]
-
-if args.debug:
-    cmdString.insert(1, "-D DEBUG")
-
-if args.ipAddress != "unknown":
-    cmdString.insert(1, "-D IPADDR=\"" + (args.ipAddress)+ "\"")
+print(str(args.ipAddress))
 
 
-subprocess.run(cmdString)
+# cmdString = ["gcc", "testing.c", "-o", args.outputName]
 
-subprocess.run("./implant")
+# if args.debug:
+#     cmdString.insert(1, "-D DEBUG")
+
+# if args.ipAddress != "unknown":
+#     cmdString.insert(1, "-D IPADDR=\"" + (args.ipAddress)+ "\"")
+
+
+# subprocess.run(cmdString)
+
+# subprocess.run("./implant")
 
 
 
