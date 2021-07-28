@@ -15,10 +15,23 @@ parser.add_argument("-do", "--domain", type=str,
 """
 parser.add_argument("-p", "--platform",type=str, metavar='',
         help="platform", default="unknown")
+"""
 parser.add_argument("-a", "--architecture",type=str, metavar='', 
         help="system architecture", default="unknown")
 parser.add_argument("-os", "--os",type=str, metavar='',
         help="operating system", default="unknown")
+parser.add_argument("-lv", "--libcversion", type=str, metavar='',
+        help="libc version", default="unknown")
+parser.add_argument("-kv", "--kernversion", type=str, metavar='',
+        help="kernel  version", default="unknown")
+parser.add_argument("-fc", "--functionality", type=str, metavar='',
+        help="functionality", default="unknown")
+parser.add_argument("-eg", "--execguardrails", type=str, metavar='',
+        help="execution guardrails", default="unknown")
+parser.add_argument("-pm", "--persistmech", type=str, metavar='',
+        help="persistence mechanism", default="unknown")
+
+"""
 parser.add_argument("-vn", "--versionNumber",type=str, metavar='',
         help="version no.", default="unknown")
 parser.add_argument("-pay", "--payload",type=str, metavar='',
@@ -82,6 +95,27 @@ if args.debug:
 
 if args.ipAddress != "unknown":
     cmdString.insert(1, "-D IPNUM=\"" +(args.ipAddress)+ "\"")
+
+if args.architecture != "unknown":
+    cmdString.insert(1, "-D ARCH=\"" +(args.architecture)+ "\"")
+
+if args.os != "unknown":
+    cmdString.insert(1, "-D OS=\"" +(args.os)+ "\"")
+
+if args.libcversion != "unknown":
+    cmdString.insert(1, "-D LIBV=\"" +(args.libcversion)+ "\"")
+
+if args.kernversion != "unknown":
+    cmdString.insert(1, "-D KERV=\"" +(args.kernversion)+ "\"")
+
+if args.functionality != "unknown":
+    cmdString.insert(1, "-D FUNC=\"" +(args.functionality)+ "\"")
+
+if args.execguardrails != "unknown":
+    cmdString.insert(1, "-D EXEC=\"" +(args.execguardrails)+ "\"")
+
+if args.persistmech != "unknown":
+    cmdString.insert(1, "-D PERM=\"" +(args.persistmech)+ "\"")
 
 subprocess.run(cmdString)
 
