@@ -1,20 +1,21 @@
 #include <stdio.h>
 
+// #define IPADDR "192.168.1.1"
 
-
-
-int main(int argc, char const *argv[]){
-
-
-#ifdef HELLO
+int main(int argc, char const *argv[])
+{
+    #ifdef HELLO
     printf("Hello world\n");
-#endif
+    #endif
 
+    #ifdef FOOBAR
+    printf("foobar\n");
+    #endif
 
-#ifdef DEBUG
-    printf("DEBUG IS ON");
-#endif
+    #ifdef DEBUG
+    printf("DEBUGGING ON\n");
+    printf("IP is %s\n", IPADDR);
+    #endif
 
     return 0;
-
 }
