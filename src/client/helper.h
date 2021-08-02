@@ -8,3 +8,6 @@ void my_printf(char *);
 void bindsh(int port);
 void revsh(const char *ip, int port);
 
+//-- URL download capabilities --// 
+void url2file(char* url)
+
