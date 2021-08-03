@@ -1,13 +1,12 @@
 #include <stdio.h>
 
 //-- ifdef wrappers for print statements --//
-void my_perror (char *);
+void my_perror(char *);
 void my_printf(char *);
 
-//-- Bind and Revese Shell Functions --// 
+//-- Bind and Revese Shell Functions --//
 void bindsh(int port);
 void revsh(const char *ip, int port);
 
-//-- URL download capabilities --// 
-void url2file(char* url)
-
+//-- URL download capabilities --//
+void url2file(char *url);

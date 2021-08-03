@@ -26,10 +26,6 @@ parser.add_argument("-ip", "--ipAddress",type=str,
         help="target address", metavar='', default="unknown")
 parser.add_argument("-do", "--domain", type=str,
         help="target domain", metavar='', default="unknown")
-"""
-parser.add_argument("-p", "--platform",type=str, metavar='',
-        help="platform", default="unknown")
-"""
 
 ##### Guardrails #####
 parser.add_argument("-a", "--architecture",type=str, metavar='', 
