@@ -1,6 +1,10 @@
 *.json
 *.out
 *.csv
+*daemonizer
+*implant
+*test
+*testing
 
 src/buildScripts/implant
 src/buildScripts/test
