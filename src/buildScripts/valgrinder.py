@@ -15,10 +15,10 @@ args = parser.parse_args()
 isLeakCheckOn = "yes"
 if args.leakcheck == False:
     isLeakCheckOn = "no"
-    
+
 cmdList = ["valgrind", "--leak-check=" + isLeakCheckOn, "./" + args.filename]
 
 if args.verbose:
-    cmdList.insert(2, "-D REVIP=\"" +(args.reverseIP)+ "\"")
+    cmdList.insert(2, "-v")
 
 subprocess.run(cmdList)
