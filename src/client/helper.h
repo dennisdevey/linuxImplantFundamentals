@@ -5,3 +5,6 @@
 void my_perror (char *);
 void my_printf(char *);
 
+
+
+char* strProfile();
