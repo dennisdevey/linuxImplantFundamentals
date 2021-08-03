@@ -1,3 +1,5 @@
+#pragma once
+
 #include "helper.h"
 
 void my_printf(char *msg)

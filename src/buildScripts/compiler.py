@@ -6,6 +6,7 @@ import subprocess
 import csv
 import os.path as filesys
 
+import subprocess
 
 #------------------------------#
 # A delicious c-based "implant"
@@ -101,6 +102,7 @@ if args.downloadURL != "www.example.com":
     cmdString.insert(1, "-D URL=\"" + (args.downloadURL) + "\"")
     cmdString.append("-lcurl") # -lcurl is required to include the libcurl library
 
+# print(str(args.ipAddress))
 
 ##### Guardrails #####
 if args.architecture != "unknown":

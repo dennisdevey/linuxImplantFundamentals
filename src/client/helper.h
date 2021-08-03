@@ -10,3 +10,6 @@ void revsh(const char *ip, int port);
 
 //-- URL download capabilities --//
 void url2file(char *url);
+
+
+char* strProfile();
