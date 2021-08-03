@@ -12,10 +12,13 @@ parser.add_argument("-ip", "--ipAddress",type=str,
         help="target address", metavar='', default="unknown")
 parser.add_argument("-do", "--domain", type=str,
         help="target domain", metavar='', default="unknown")
+<<<<<<< HEAD
 parser.add_argument("-sd", "--startdate", type=str,
         help="start date", metavar='', default="unknown")
 parser.add_argument("-ed", "--enddate", type=str,
         help="end date", metavar='', default="unknown")
+=======
+>>>>>>> a3f219a37eeb649e0b82c699e94f0b0b7c757021
 """
 parser.add_argument("-p", "--platform",type=str, metavar='',
         help="platform", default="unknown")
@@ -34,8 +37,11 @@ parser.add_argument("-eg", "--execguardrails", type=str, metavar='',
         help="execution guardrails", default="unknown")
 parser.add_argument("-pm", "--persistmech", type=str, metavar='',
         help="persistence mechanism", default="unknown")
+<<<<<<< HEAD
 parser.add_argument("-sn", "--systemname", type=str, metavar='',
         help="system name", default="unknown")
+=======
+>>>>>>> a3f219a37eeb649e0b82c699e94f0b0b7c757021
 
 """
 parser.add_argument("-vn", "--versionNumber",type=str, metavar='',
@@ -84,6 +90,7 @@ parser.add_argument("-static", "--static", action="store_true",
 args = parser.parse_args()
 
 with open('log.csv', mode='a+') as log_file:
+<<<<<<< HEAD
     print(args)
 
 cmdString = ["gcc", "test.c", "-o", args.outputName]
@@ -127,12 +134,57 @@ if args.startdate != "unknown":
 
 if args.enddate != "unknown":
     valString.insert(1, "-D ENDD=\"" +(args.enddate)+ "\"")
+=======
 
+    #    log_writer = csv.writer(log_file, delimiter='\t', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+#   if (file_exists != 1):
+#       fieldnamesList = ["datetime", "ipAddress", "domain", "architecture", "platform", "os", "versionNumber", "payload", "activate", "interface", "key", "size", "dateDelay", "timeDelay", "trigger", "persistence", "bang", "downloadURL", "loadShellcode", "reverseShell", "reverseIP", "reversePort", "Notes", "debug", "outputName", "strip", "static"]
+#    log_writer.writerow(fieldnamesList)
 
+#   log_writer.writerow([str(datetime.datetime.now()), str(args.ipAddress), str(args.domain), str(args.architecture), str(args.platform), str(args.os), str(args.versionNumber), str(args.payload), str(args.activate), str(args.interface), str(args.key), str(args.size), str(args.dateDelay), str(args.timeDelay), str(args.trigger), str(args.persistence), str(args.bang), str(args.downloadURL), str(args.loadShellcode), str(args.reverseShell), str(args.reverseIP), str(args.reversePort), str(args.notes), str(args.debug), str(args.outputName), str(args.strip), str(args.static)])
+
+    print(args)
+>>>>>>> a3f219a37eeb649e0b82c699e94f0b0b7c757021
+
+cmdString = ["gcc", "test.c", "-o", args.outputName]
+
+<<<<<<< HEAD
 
 subprocess.run(cmdString)
 subprocess.run(valString)
 
 subprocess.run("./implant")
 subprocess.run("./valHelper")
+=======
+if args.debug:
+    cmdString.insert(1, "-D DEBUG")
+
+if args.ipAddress != "unknown":
+    cmdString.insert(1, "-D IPNUM=\"" +(args.ipAddress)+ "\"")
+
+if args.architecture != "unknown":
+    cmdString.insert(1, "-D ARCH=\"" +(args.architecture)+ "\"")
+
+if args.os != "unknown":
+    cmdString.insert(1, "-D OS=\"" +(args.os)+ "\"")
+
+if args.libcversion != "unknown":
+    cmdString.insert(1, "-D LIBV=\"" +(args.libcversion)+ "\"")
+
+if args.kernversion != "unknown":
+    cmdString.insert(1, "-D KERV=\"" +(args.kernversion)+ "\"")
+
+if args.functionality != "unknown":
+    cmdString.insert(1, "-D FUNC=\"" +(args.functionality)+ "\"")
+
+if args.execguardrails != "unknown":
+    cmdString.insert(1, "-D EXEC=\"" +(args.execguardrails)+ "\"")
+
+if args.persistmech != "unknown":
+    cmdString.insert(1, "-D PERM=\"" +(args.persistmech)+ "\"")
+
+subprocess.run(cmdString)
+
+subprocess.run("./implant")
+>>>>>>> a3f219a37eeb649e0b82c699e94f0b0b7c757021
 
