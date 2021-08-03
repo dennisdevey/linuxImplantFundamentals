@@ -1,5 +1,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -7,6 +8,7 @@
 #include <unistd.h>
 #include <syslog.h>
 #include <string.h>
+
 #include "helper.h"
 
 int main(void)
@@ -14,6 +16,7 @@ int main(void)
 
     /* Our process ID and Session ID */
     pid_t pid, sid;
+    int status = 0;
 
     /* Fork off the parent process */
     pid = fork();
@@ -25,6 +28,12 @@ int main(void)
            we can exit the parent process. */
     if (pid > 0)
     {
+        while ((pid = wait(&status)) > 0)
+        {
+            //TODO: add respawning capabilities to the parent
+            my_printf("The child job has finished\n");
+        }
+        // wait(0);
         exit(EXIT_SUCCESS);
     }
 
@@ -70,7 +79,6 @@ int main(void)
 #endif
     }
 
-    // wait(0);
     my_printf("yolo mfs");
     exit(EXIT_SUCCESS);
 }
