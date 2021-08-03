@@ -30,7 +30,9 @@ int main()
 #ifdef PERM
         printf("Persistence Mechanism is %s\n", PERM);
 #endif
-
+#ifdef SYSN
+	printf("System name is %s\n", SYSN);
+#endif
 	return 0;
 }
 

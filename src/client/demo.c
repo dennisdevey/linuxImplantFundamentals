@@ -1,11 +1,10 @@
-
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
 #include "functionality.h"
 #include "helper.h"
 
-
+# pragma once
 extern int errno;
 
 int main ()
