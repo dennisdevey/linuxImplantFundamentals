@@ -5,6 +5,7 @@ import os
 import subprocess
 import csv
 import os.path as filesys
+import os
 
 
 #------------------------------#
@@ -13,6 +14,8 @@ import os.path as filesys
 # wannabes :D      ENJOY!
 #------------------------------#
 
+# Change the CWD to src in order to have access to the .c and .h files
+# os.chdir('../')
 
 # The path(s) to all of the .c and .h files to be included in the implant
 implant_c_path = "testing.c"
