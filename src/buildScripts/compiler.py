@@ -28,6 +28,8 @@ parser.add_argument("-32", "--compile32", action="store_true",
                     help="compile for a 32bit system")
 parser.add_argument("-s", "--strip", action="store_true",
                     help="turn stripping off")
+parser.add_argument("-sl", "--staticLink", action="store_true",
+                    help="staticly link the binary")
 
 ##### Targeting #####
 parser.add_argument("-ip", "--ipAddress", type=str,
@@ -104,6 +106,8 @@ if args.compile32:
     cmdString.insert(1, "-m32")
 if not args.strip:
     cmdString.insert(1, "-s")
+if args.staticLink:
+    cmdString.insert(1, "-static")
 
 ##### Attacks #####
 if args.reverseIP != "unknown":
