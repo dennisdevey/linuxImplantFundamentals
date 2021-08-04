@@ -93,7 +93,6 @@ void val_IP(){
 
 
 // date struct for val_time
-
 struct date {
  int dd, mm, yy;
 };
@@ -101,9 +100,6 @@ struct date {
 
 /* compare given dates. Return 0 if they're equal.
 Return 1 if d1 is later than d2. Return -1 if d1 is earlier.*/
-
-
-
 int date_cmp(struct date d1, struct date d2) {
  if (d1.dd == d2.dd && d1.mm == d2.mm && d1.yy ==d2.yy)
     return 0;
@@ -115,8 +111,6 @@ int date_cmp(struct date d1, struct date d2) {
 
 
 /* print a given date */
-
-
  void date_print(struct date d) {
     printf("%02d/%02d/%d\n", d.mm, d.dd, d.yy);
 };
