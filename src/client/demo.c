@@ -1,27 +1,27 @@
-#pragma once
 
 #include <stdio.h>
+#include <string.h>
 #include <errno.h>
 #include "functionality.h"
 #include "helper.h"
 
+
 extern int errno;
 
-int main ()
+int main()
 {
-  #ifdef OPENFile
-  FILE * pFile;
-  pFile = fopen ("OPENFILE","rb");
+#ifdef OPENFile
+  FILE *pFile;
+  pFile = fopen("OPENFILE","rb");
   if (pFile == NULL)
   {
     my_perror("The following error occurred");
-    my_printf( "Value of errno: %d\n", errno );
+    my_printf("Value of errno: %d\n", errno);
   }
   else {
-    fclose (pFile);
+    fclose(pFile);
   }
-  #endif
+#endif
   
   return 0;
-  
 }

@@ -14,6 +14,9 @@ int main(int argc, char const *argv[])
 
     #ifdef DEBUG
     printf("DEBUGGING ON\n");
+    #endif
+
+    #ifdef IPADDR
     printf("IP is %s\n", IPADDR);
     #endif
 
