@@ -15,6 +15,7 @@ Selected Links:
 These are some other writeups of varying quality on implant dev. Please don't leave my course to go and do these, I promise mine is significantly more comprehensive, if less polished. These are mostly here so I don't lose track of them.
 
 * Implants
+  * https://casvancooten.com/posts/2021/08/building-a-c2-implant-in-nim-considerations-and-lessons-learned/
   * https://shogunlab.gitbook.io/building-c2-implants-in-cpp-a-primer/chapter-2-establishing-a-listening-post
   * https://github.com/p3nt4/Nuages/wiki/Tutorial:-Creating-a-custom-full-featured-implant
   * https://www.youtube.com/watch?v=2Ra1CCG8Guo&feature=youtu.be
